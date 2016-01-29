@@ -14,6 +14,10 @@ public class Villager : MonoBehaviour
 
     private float movementRandomSeed = 0f;
     private float timeToChangeVillagerMovement = 0f;
+    private float maximumTimeToChangeVillagerMovement = 3f;
+
+    private float minimumRollForRandomSeed = 0f;
+    private float maximumRollForRandomSeed = 3f;
 
 	public void Init()
 	{
@@ -29,7 +33,7 @@ public class Villager : MonoBehaviour
         switch (CurrentState)
         {
             case EVillagerState.Idle:
-                if (timeToChangeVillagerMovement > 3f)
+                if (timeToChangeVillagerMovement > maximumTimeToChangeVillagerMovement)
                 {
                     timeToChangeVillagerMovement = 0f;
                     ChooseVillagerMovementDirection();
@@ -41,7 +45,7 @@ public class Villager : MonoBehaviour
                 }
             break;
             case EVillagerState.WalkingLeft:
-                if (timeToChangeVillagerMovement > 3f)
+                if (timeToChangeVillagerMovement > maximumTimeToChangeVillagerMovement)
                 {
                     timeToChangeVillagerMovement = 0f;
                     ChooseVillagerMovementDirection();
@@ -54,7 +58,7 @@ public class Villager : MonoBehaviour
                 }
             break;
             case EVillagerState.WalkingRight:
-                if (timeToChangeVillagerMovement > 3f)
+                if (timeToChangeVillagerMovement > maximumTimeToChangeVillagerMovement)
                 {
                     timeToChangeVillagerMovement = 0f;
                     ChooseVillagerMovementDirection();
@@ -73,12 +77,12 @@ public class Villager : MonoBehaviour
 
     void ChooseVillagerMovementDirection()
     {
-        movementRandomSeed = Random.Range(0f, 3f);
-        if (movementRandomSeed <= 1)
+        movementRandomSeed = Random.Range(0f, maximumRollForRandomSeed);
+        if (movementRandomSeed <= 1f)
         {
             CurrentState = EVillagerState.Idle;
         }
-        else if (movementRandomSeed <= 2)
+        else if (movementRandomSeed <= 2f)
         {
             CurrentState = EVillagerState.WalkingLeft;
         }
