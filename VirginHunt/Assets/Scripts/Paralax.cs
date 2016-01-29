@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Paralax : MonoBehaviour 
 {
+	[SerializeField]
 	private float xModifier = 0f;
+	[SerializeField]
 	private float yModifier = 0f;
 
 	private float xStartShift = 0f;
@@ -20,5 +22,6 @@ public class Paralax : MonoBehaviour
 		Vector3 pos = this.transform.localPosition;
 		pos.x = xStartShift + GameController.Instance.MainCamera.transform.localPosition.x * xModifier;
 		pos.y = yStartShift + GameController.Instance.MainCamera.transform.localPosition.y * yModifier;
+		this.transform.localPosition = pos;
 	}
 }

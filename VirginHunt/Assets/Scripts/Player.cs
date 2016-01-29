@@ -82,5 +82,7 @@ public class Player : MonoBehaviour
 		Vector3 pos = this.transform.localPosition;
 		pos.x = newX;
 		this.transform.localPosition = pos;
+
+		GameController.Instance.MainCamera.GetComponent<MainCamera>().SetNewXPosition(newX);
 	}
 }
