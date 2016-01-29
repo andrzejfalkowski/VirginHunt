@@ -44,12 +44,15 @@ public class GameController : MonoBehaviour
 	// lists
 	public List<Villager> Villagers = new List<Villager>();
 	public List<Beast> Beasts = new List<Beast>();
+	public Player PlayerCharacter;
 
 	// prefabs
 	[SerializeField]
 	private GameObject villagerPrefab;
 	[SerializeField]
 	private GameObject beastPrefab;
+	[SerializeField]
+	private GameObject playerPrefab;
 
 	public bool IsGameInPogress()
 	{
@@ -78,6 +81,7 @@ public class GameController : MonoBehaviour
 					SpawnVillager();
 				}
 				CurrentGamePhase = EGamePhase.Day;
+				SpawnPlayer();
 			break;
 			case EGamePhase.Day:
 				if(CurrentPhaseTime > Globals.DAY_DURATION)
@@ -115,6 +119,15 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	public void SpawnPlayer()
+	{
+		GameObject playerObject = GameObject.Instantiate(playerPrefab) as GameObject;
+		playerObject.transform.SetParent(SceneParent);
+		Player player = playerObject.GetComponent<Player>();
+		PlayerCharacter = player;
+		player.Init();
+	}
+
 	public void SpawnVillager()
 	{
 		GameObject villagerObject = GameObject.Instantiate(villagerPrefab) as GameObject;
@@ -137,14 +150,17 @@ public class GameController : MonoBehaviour
 	{
 		for(int i = 0; i < Villagers.Count; i++)
 		{
-			Destroy(Villagers[i]);
+			Destroy(Villagers[i].gameObject);
 		}
 		Villagers.Clear();
 
 		for(int i = 0; i < Beasts.Count; i++)
 		{
-			Destroy(Beasts[i]);
+			Destroy(Beasts[i].gameObject);
 		}
 		Beasts.Clear();
+
+		if(PlayerCharacter != null)
+			Destroy(PlayerCharacter.gameObject);
 	}
 }
