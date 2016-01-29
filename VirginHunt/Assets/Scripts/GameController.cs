@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
 
 	// lists
 	public List<Villager> Villagers = new List<Villager>();
+	public List<Beast> Beasts = new List<Beast>();
 
 	// prefabs
 	[SerializeField]
@@ -68,11 +69,7 @@ public class GameController : MonoBehaviour
 				CleanUp();
 				for(int i = 0; i < Globals.VILLAGERS_START_AMOUNT; i++)
 				{
-					GameObject villagerObject = GameObject.Instantiate(villagerPrefab) as GameObject;
-					villagerObject.transform.SetParent(SceneParent);
-					Villager villager = villagerObject.GetComponent<Villager>();
-					villager.Init();
-					Villagers.Add(villager);
+					SpawnVillager();
 				}
 				CurrentGamePhase = EGamePhase.Day;
 			break;
@@ -98,6 +95,24 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	public void SpawnVillager()
+	{
+		GameObject villagerObject = GameObject.Instantiate(villagerPrefab) as GameObject;
+		villagerObject.transform.SetParent(SceneParent);
+		Villager villager = villagerObject.GetComponent<Villager>();
+		villager.Init();
+		Villagers.Add(villager);
+	}
+
+	public void SpawnBeast()
+	{
+		GameObject beastObject = GameObject.Instantiate(beastPrefab) as GameObject;
+		beastObject.transform.SetParent(SceneParent);
+		Beast beast = beastObject.GetComponent<Beast>();
+		beast.Init();
+		Beasts.Add(beast);
+	}
+
 	public void CleanUp()
 	{
 		for(int i = 0; i < Villagers.Count; i++)
@@ -105,5 +120,11 @@ public class GameController : MonoBehaviour
 			Destroy(Villagers[i]);
 		}
 		Villagers.Clear();
+
+		for(int i = 0; i < Beasts.Count; i++)
+		{
+			Destroy(Beasts[i]);
+		}
+		Beasts.Clear();
 	}
 }
