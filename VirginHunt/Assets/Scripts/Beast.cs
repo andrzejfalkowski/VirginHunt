@@ -18,4 +18,14 @@ public class Beast : MonoBehaviour
 	{
 
 	}
+
+	public void Die()
+	{
+		CurrentState = EBeastState.Dying;
+	}
+
+	public void HandleDeathAnimationFinished()
+	{
+		Destroy(this.gameObject);
+	}
 }

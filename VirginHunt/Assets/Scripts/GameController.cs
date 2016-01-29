@@ -35,7 +35,10 @@ public class GameController : MonoBehaviour
 	}
 	public EGamePhase CurrentGamePhase = EGamePhase.Prepare;
 	public float CurrentPhaseTime = 0f;
-	
+	private float timeToSpawnBeast = 0f;
+
+	public int DaysAmount = 0;
+
 	public Transform SceneParent;
 
 	// lists
@@ -68,6 +71,7 @@ public class GameController : MonoBehaviour
 		switch(CurrentGamePhase)
 		{
 			case EGamePhase.Prepare:
+				DaysAmount = 0;
 				CleanUp();
 				for(int i = 0; i < Globals.VILLAGERS_START_AMOUNT; i++)
 				{
@@ -81,6 +85,7 @@ public class GameController : MonoBehaviour
 					CurrentPhaseTime = CurrentPhaseTime % Globals.DAY_DURATION;
 					CurrentGamePhase = EGamePhase.Night;
 					// TODO: handle switch to night
+					timeToSpawnBeast = 0f;
 				}
 			break;
 			case EGamePhase.Night:
@@ -89,6 +94,19 @@ public class GameController : MonoBehaviour
 					CurrentPhaseTime = CurrentPhaseTime % Globals.NIGHT_DURATION;
 					CurrentGamePhase = EGamePhase.Day;
 					// TODO: handle switch to day
+					for(int i = 0; i < Beasts.Count; i++)
+					{
+						Beasts[i].Die();
+					}
+				}
+				else
+				{
+					timeToSpawnBeast += Time.deltaTime;
+					if(timeToSpawnBeast > (Globals.NIGHT_DURATION - Globals.BEAST_MERCY_TIME) / (Globals.START_BEAST_AMOUNT + DaysAmount * Globals.BEAST_AMOUNT_INCREASE))
+					{
+						SpawnBeast();
+						timeToSpawnBeast = timeToSpawnBeast % (Globals.START_BEAST_AMOUNT + DaysAmount * Globals.BEAST_AMOUNT_INCREASE);
+					}
 				}
 			break;
 			case EGamePhase.GameOver:
