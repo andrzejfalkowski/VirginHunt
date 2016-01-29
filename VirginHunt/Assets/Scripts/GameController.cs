@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour
 				if(CurrentPhaseTime > Globals.NIGHT_DURATION)
 				{
 					CurrentPhaseTime = CurrentPhaseTime % Globals.NIGHT_DURATION;
-					CurrentGamePhase = EGamePhase.Night;
+					CurrentGamePhase = EGamePhase.Day;
 					// TODO: handle switch to day
 				}
 			break;
