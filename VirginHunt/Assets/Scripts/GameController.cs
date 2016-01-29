@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour
 	}
 	#endregion
 
+	public Camera MainCamera;
+
 	public enum EGamePhase
 	{
 		Prepare,
