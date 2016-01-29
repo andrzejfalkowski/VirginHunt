@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour 
 {
@@ -31,7 +32,18 @@ public class GameController : MonoBehaviour
 		GameOver
 	}
 	public EGamePhase CurrentGamePhase = EGamePhase.Prepare;
-	private float CurrentPhaseTime = 0f;
+	public float CurrentPhaseTime = 0f;
+	
+	public Transform SceneParent;
+
+	// lists
+	public List<Villager> Villagers = new List<Villager>();
+
+	// prefabs
+	[SerializeField]
+	private GameObject villagerPrefab;
+	[SerializeField]
+	private GameObject beastPrefab;
 
 	public bool IsGameInPogress()
 	{
@@ -41,12 +53,57 @@ public class GameController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-	
+		CurrentGamePhase = EGamePhase.Prepare;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		if(IsGameInPogress())
+			CurrentPhaseTime += Time.deltaTime;
+
+		switch(CurrentGamePhase)
+		{
+			case EGamePhase.Prepare:
+				CleanUp();
+				for(int i = 0; i < Globals.VILLAGERS_START_AMOUNT; i++)
+				{
+					GameObject villagerObject = GameObject.Instantiate(villagerPrefab) as GameObject;
+					villagerObject.transform.SetParent(SceneParent);
+					Villager villager = villagerObject.GetComponent<Villager>();
+					villager.Init();
+					Villagers.Add(villager);
+				}
+				CurrentGamePhase = EGamePhase.Day;
+			break;
+			case EGamePhase.Day:
+				if(CurrentPhaseTime > Globals.DAY_DURATION)
+				{
+					CurrentPhaseTime = CurrentPhaseTime % Globals.DAY_DURATION;
+					CurrentGamePhase = EGamePhase.Night;
+					// TODO: handle switch to night
+				}
+			break;
+			case EGamePhase.Night:
+				if(CurrentPhaseTime > Globals.NIGHT_DURATION)
+				{
+					CurrentPhaseTime = CurrentPhaseTime % Globals.NIGHT_DURATION;
+					CurrentGamePhase = EGamePhase.Night;
+					// TODO: handle switch to day
+				}
+			break;
+			case EGamePhase.GameOver:
+				// TODO: menus and shit
+			break;
+		}
+	}
+
+	public void CleanUp()
+	{
+		for(int i = 0; i < Villagers.Count; i++)
+		{
+			Destroy(Villagers[i]);
+		}
+		Villagers.Clear();
 	}
 }
