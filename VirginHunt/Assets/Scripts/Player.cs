@@ -68,9 +68,7 @@ public class Player : MonoBehaviour
 		{
 			CurrentState = EPlayerState.WalkingLeft;
             TurnLeft();
-            playerAnimations.AnimationMove();
-
-            
+            playerAnimations.AnimationMove();         
         }
 	}
 
@@ -97,7 +95,7 @@ public class Player : MonoBehaviour
 	{
 		if(IsCarryingVillager)
 		{
-
+			CurrentState = EPlayerState.Dropping;
             if(IsOnAltar)
             {
                 playerAnimations.AnimationPut();
@@ -126,8 +124,10 @@ public class Player : MonoBehaviour
 			{
 				IsCarryingVillager = true;
                 playerAnimations.AnimationTake();
+				CurrentState = EPlayerState.PickingUp;
 				CarriedVillager = collidingVillagers[0];
 				CarriedVillager.HandleBeingPickedUp();
+
 			}
 		}
 	}
@@ -208,4 +208,14 @@ public class Player : MonoBehaviour
             facingLeft = false;
         }
     }
+
+	public void HandleTakeAnimationFinished()
+	{
+		CurrentState = EPlayerState.Idle;
+	}
+
+	public void HandlePutAnimationFinished()
+	{
+		CurrentState = EPlayerState.Idle;
+	}
 }
