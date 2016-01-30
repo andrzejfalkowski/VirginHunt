@@ -55,4 +55,9 @@ public class PlayerAnimations : MonoBehaviour {
 
 		myPlayer.HandlePutAnimationFinished();
 	}
+
+    public void AcessToHandleDeathAnimation()
+    {
+        myPlayer.HandleDeathAnimation();
+    }
 }

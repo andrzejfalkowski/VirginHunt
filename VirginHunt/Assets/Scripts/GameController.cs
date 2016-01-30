@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -40,6 +41,8 @@ public class GameController : MonoBehaviour
 	public int DaysAmount = 0;
 
 	public Transform SceneParent;
+    public Text LoseConditionText;
+    public GameObject GameOverPanel;
 
 	// lists
 	public List<Villager> Villagers = new List<Villager>();
@@ -120,7 +123,6 @@ public class GameController : MonoBehaviour
 				}
 			break;
 			case EGamePhase.GameOver:
-				// TODO: menus and shit
 			break;
 		}
 	}
@@ -182,6 +184,15 @@ public class GameController : MonoBehaviour
 	public void GameOver(bool cultistsDead = false)
 	{
 		CurrentGamePhase = EGamePhase.GameOver;
+        GameOverPanel.SetActive(true);
+        if (cultistsDead)
+        {
+            LoseConditionText.text = "You have lost all your worshippers";
+        }
+        else if(!cultistsDead)
+        {
+            LoseConditionText.text = "You have been devoured by monsters";
+        }
 	}
 
 	public void CheckForAnyCultistsLeft()
