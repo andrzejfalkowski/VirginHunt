@@ -41,4 +41,9 @@ public class VillagerAnimations : MonoBehaviour
 	{
 		animator.SetBool("Die", true);
 	}
+
+	public void HandleDeathAnimationFinished()
+	{
+		myVillager.HandleBeingKilled ();
+	}
 }
