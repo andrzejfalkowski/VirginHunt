@@ -224,7 +224,7 @@ public class Villager : MonoBehaviour
 		CurrentState = EVillagerState.PickedUp;
 		this.transform.SetParent(GameController.Instance.PlayerCharacter.PickablePoint);
 		this.transform.localPosition = Vector3.zero;
-		villagerAnimations.AnimationCarried();
+		villagerAnimations.AnimationCarried();		
 	}
 
 	public void HandleBeingDropped()
@@ -235,18 +235,45 @@ public class Villager : MonoBehaviour
 		villagerAnimations.AnimationIdle();
 	}
 
+	public void HandleBeingDroppedAsSacrifice()
+	{
+		CurrentState = EVillagerState.Dying;
+		this.transform.SetParent(GameController.Instance.Altar.transform);
+		this.transform.position = GameController.Instance.Altar.transform.position;
+		villagerAnimations.AnimationDie();
+
+		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
+	}
+
 	public void HandleBeingDroppedAsCultist(PrayerSpot prayerSpot)
 	{
 		CurrentState = EVillagerState.Praying;
 		this.transform.SetParent(prayerSpot.transform);
 		this.transform.localPosition = prayerSpot.CultistSpot.localPosition;
+
+		if(GameController.Instance.Altar.transform.position.x > this.transform.position.x)
+		{
+			Vector3 newScale = this.transform.localScale;
+			newScale.x = 1f;
+			this.transform.localScale = newScale;
+		}
+		else
+		{
+			Vector3 newScale = this.transform.localScale;
+			newScale.x = -1f;
+			this.transform.localScale = newScale;
+		}
 		villagerAnimations.AnimationPray();
+
+		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
 	}
 
     public void HandleBeingKilled()
     {
 		CurrentState = EVillagerState.Dying;
 		villagerAnimations.AnimationDie();
+
+		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
     }
 
 	public void HandleDieAnimationFinished()

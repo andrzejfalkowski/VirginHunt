@@ -102,17 +102,11 @@ public class Player : MonoBehaviour
 			CurrentState = EPlayerState.Dropping;
             if(IsOnAltar)
             {
-                playerAnimations.AnimationPut();
-				Altar.SacrifaceVillager(CarriedVillager.Virginity * Globals.VIRGINITY_POWER_MOD);
-                CarriedVillager.HandleBeingKilled();
-                IsCarryingVillager = false;
+				DropVillagerAsSacrifice();
             }
             else if(IsOnPrayerSpot && !currentPrayerSpot.IsActiveSpot)
             {
-                playerAnimations.AnimationPut();
-                currentPrayerSpot.AddCultist(CarriedVillager);
-				CarriedVillager.HandleBeingDroppedAsCultist(currentPrayerSpot);
-                IsCarryingVillager = false;
+				DropVillagerAsCultist();
             }
             else
             {
@@ -131,6 +125,22 @@ public class Player : MonoBehaviour
 
 			}
 		}
+	}
+
+	void DropVillagerAsSacrifice()
+	{
+		playerAnimations.AnimationPut();
+		Altar.SacrifaceVillager(CarriedVillager.Virginity * Globals.VIRGINITY_POWER_MOD);
+		CarriedVillager.HandleBeingDroppedAsSacrifice();
+		IsCarryingVillager = false;
+	}
+
+	void DropVillagerAsCultist()
+	{
+		playerAnimations.AnimationPut();
+		currentPrayerSpot.AddCultist(CarriedVillager);
+		CarriedVillager.HandleBeingDroppedAsCultist(currentPrayerSpot);
+		IsCarryingVillager = false;
 	}
 
 	void DropVillager(bool animated = true)
@@ -246,4 +256,10 @@ public class Player : MonoBehaviour
 		CurrentState = EPlayerState.Idle;
         playerAnimations.AnimationIdle();
     }
+
+	public void RemoveVillagerFromColliding(Villager villager)
+	{
+		if (collidingVillagers.Contains(villager))
+			collidingVillagers.Remove(villager);
+	}
 }
