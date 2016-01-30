@@ -17,8 +17,11 @@ public class Player : MonoBehaviour
 
 	public bool IsCarryingVillager = false;
     public bool IsOnAltar = true;
+    public bool IsOnPrayerSpot = false;
 	public Villager CarriedVillager = null;
 	public Transform PickablePoint;
+
+    public PrayerSpot currentPrayerSpot = null;
 
 	[SerializeField]
 	private List<Villager> collidingVillagers = new List<Villager>();
@@ -81,6 +84,12 @@ public class Player : MonoBehaviour
                 CarriedVillager.HandleBeingKilled();
                 IsCarryingVillager = false;
             }
+            else if(IsOnPrayerSpot && !currentPrayerSpot.IsActiveSpot)
+            {
+                currentPrayerSpot.AddCultist(CarriedVillager.Virginity);
+                CarriedVillager.HandleBeingKilled();
+                IsCarryingVillager = false;
+            }
             else
             {     
 			    IsCarryingVillager = false;
@@ -103,6 +112,7 @@ public class Player : MonoBehaviour
 	{
 		Villager villager = collider.GetComponent<Villager>();
         Altar altar = collider.GetComponent<Altar>();
+        PrayerSpot prayerSpot = collider.GetComponent<PrayerSpot>();
 		if(villager != null && !collidingVillagers.Contains(villager))
 		{
 			collidingVillagers.Add(villager);
@@ -111,19 +121,30 @@ public class Player : MonoBehaviour
         {
             IsOnAltar = true;
         }
+        else if (prayerSpot != null)
+        {
+            IsOnPrayerSpot = true;
+            currentPrayerSpot = prayerSpot;
+        }
 	}
 
 	void OnTriggerExit2D(Collider2D collider)
 	{
 		Villager villager = collider.GetComponent<Villager>();
         Altar altar = collider.GetComponent<Altar>();
-		if(villager != null && collidingVillagers.Contains(villager))
+        PrayerSpot prayerSpot = collider.GetComponent<PrayerSpot>();
+        if (villager != null && collidingVillagers.Contains(villager))
 		{
 			collidingVillagers.Remove(villager);
 		}
         else if(altar != null)
         {
             IsOnAltar = false;
+        }
+        else if(prayerSpot != false)
+        {
+            IsOnPrayerSpot = false;
+            currentPrayerSpot = null;
         }
 	}
 
