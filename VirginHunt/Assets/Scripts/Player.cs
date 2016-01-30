@@ -256,4 +256,10 @@ public class Player : MonoBehaviour
 		CurrentState = EPlayerState.Idle;
         playerAnimations.AnimationIdle();
     }
+
+	public void RemoveVillagerFromColliding(Villager villager)
+	{
+		if (collidingVillagers.Contains(villager))
+			collidingVillagers.Remove(villager);
+	}
 }

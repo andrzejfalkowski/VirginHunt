@@ -224,7 +224,7 @@ public class Villager : MonoBehaviour
 		CurrentState = EVillagerState.PickedUp;
 		this.transform.SetParent(GameController.Instance.PlayerCharacter.PickablePoint);
 		this.transform.localPosition = Vector3.zero;
-		villagerAnimations.AnimationCarried();
+		villagerAnimations.AnimationCarried();		
 	}
 
 	public void HandleBeingDropped()
@@ -241,6 +241,8 @@ public class Villager : MonoBehaviour
 		this.transform.SetParent(GameController.Instance.Altar.transform);
 		this.transform.position = GameController.Instance.Altar.transform.position;
 		villagerAnimations.AnimationDie();
+
+		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
 	}
 
 	public void HandleBeingDroppedAsCultist(PrayerSpot prayerSpot)
@@ -262,12 +264,16 @@ public class Villager : MonoBehaviour
 			this.transform.localScale = newScale;
 		}
 		villagerAnimations.AnimationPray();
+
+		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
 	}
 
     public void HandleBeingKilled()
     {
 		CurrentState = EVillagerState.Dying;
 		villagerAnimations.AnimationDie();
+
+		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
     }
 
 	public void HandleDieAnimationFinished()
