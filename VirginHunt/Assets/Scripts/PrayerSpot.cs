@@ -24,4 +24,14 @@ public class PrayerSpot : MonoBehaviour {
         Virginity = powerInVillager;
         Debug.Log("Active");
     }
+
+	void OnTriggerEnter2D(Collider2D collider)
+	{
+		Beast beast = collider.GetComponent<Beast>();
+		if(beast != null)
+		{
+			IsActiveSpot = false;
+			beast.Die();
+		}
+	}
 }
