@@ -3,8 +3,8 @@ using System.Collections;
 
 public class LevelLoader : MonoBehaviour {
 
-	public void LoadLevel()
+	public void LoadLevel(string levelName)
     {
-        Application.LoadLevel("GameScene");
+        Application.LoadLevel(levelName);
     }
 }

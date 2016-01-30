@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
 			return;
 		}
 		_instance = this;
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 	}
 	#endregion
 
