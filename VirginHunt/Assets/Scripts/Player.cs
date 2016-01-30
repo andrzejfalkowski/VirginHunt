@@ -78,6 +78,7 @@ public class Player : MonoBehaviour
 	{
 		if(IsCarryingVillager)
 		{
+
             if(IsOnAltar)
             {
 				Altar.SacrifaceVillager(CarriedVillager.Virginity * Globals.VIRGINITY_POWER_MOD);
