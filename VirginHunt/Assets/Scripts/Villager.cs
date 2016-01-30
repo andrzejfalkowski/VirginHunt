@@ -63,6 +63,8 @@ public class Villager : MonoBehaviour
 	public SpriteRenderer LeftShoe;
 	public SpriteRenderer RightShoe;
 
+	public VillagerAnimations villagerAnimations;
+
     private float movementRandomSeed = 0f;
     private float timeToChangeVillagerMovement = 0f;
     private float maximumTimeToChangeVillagerMovement = 5f;
@@ -190,14 +192,23 @@ public class Villager : MonoBehaviour
         if (movementRandomSeed <= 2f)
         {
             CurrentState = EVillagerState.Idle;
+			villagerAnimations.AnimationIdle();
         }
         else if (movementRandomSeed <= 2.5f)
         {
             CurrentState = EVillagerState.WalkingLeft;
+			Vector3 newScale = this.transform.localScale;
+			newScale.x = -1f;
+			this.transform.localScale = newScale;
+			villagerAnimations.AnimationMove();
         }
         else
         {
             CurrentState = EVillagerState.WalkingRight;
+			Vector3 newScale = this.transform.localScale;
+			newScale.x = 1f;
+			this.transform.localScale = newScale;
+			villagerAnimations.AnimationMove();
         }
     }
 
@@ -206,6 +217,7 @@ public class Villager : MonoBehaviour
 		CurrentState = EVillagerState.PickedUp;
 		this.transform.SetParent(GameController.Instance.PlayerCharacter.PickablePoint);
 		this.transform.localPosition = Vector3.zero;
+		villagerAnimations.AnimationCarried();
 	}
 
 	public void HandleBeingDropped()
@@ -213,6 +225,7 @@ public class Villager : MonoBehaviour
 		CurrentState = EVillagerState.Idle;
 		this.transform.SetParent(GameController.Instance.PlayerCharacter.transform.parent);
 		this.transform.localPosition = GameController.Instance.PlayerCharacter.transform.localPosition;
+		villagerAnimations.AnimationIdle();
 	}
 
     public void HandleBeingKilled()
