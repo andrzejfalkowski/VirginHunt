@@ -235,6 +235,14 @@ public class Villager : MonoBehaviour
 		villagerAnimations.AnimationIdle();
 	}
 
+	public void HandleBeingDroppedAsSacrifice()
+	{
+		CurrentState = EVillagerState.Dying;
+		this.transform.SetParent(GameController.Instance.Altar.transform);
+		this.transform.position = GameController.Instance.Altar.transform.position;
+		villagerAnimations.AnimationDie();
+	}
+
 	public void HandleBeingDroppedAsCultist(PrayerSpot prayerSpot)
 	{
 		CurrentState = EVillagerState.Praying;
