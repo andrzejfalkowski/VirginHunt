@@ -23,10 +23,12 @@ public static class Globals
 	public const float BEAST_MERCY_TIME = 2f;
     public const float BEAST_MOVEMENT_SPEED = 2f;
 
-	public const float PLAYER_WALK_SPEED = 10f;
-	public const float PLAYER_CARRY_SPEED = 5f;
+	public const float PLAYER_WALK_SPEED = 6f;
+	public const float PLAYER_CARRY_SPEED = 3f;
 
 	public const float VIRGINITY_POWER_MOD = 10f;
 
 	public const float BEAST_POWER = 10f;
+
+
 }
