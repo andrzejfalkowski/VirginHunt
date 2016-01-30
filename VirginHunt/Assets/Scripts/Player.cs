@@ -29,6 +29,10 @@ public class Player : MonoBehaviour
 	public void Init() 
 	{
 		collidingVillagers.Clear();
+
+		Vector3 pos = this.transform.localPosition;
+		pos.y = 0f;
+		this.transform.localPosition = pos;
 	}
 	
 	// Update is called once per frame

@@ -8,6 +8,7 @@ public class Altar : MonoBehaviour
     {
         Vector3 pos = this.transform.localPosition;
         pos.x = 0f;
+		pos.y = 3.2f;
         this.transform.localPosition = pos;
     }
     

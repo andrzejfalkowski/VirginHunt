@@ -25,6 +25,7 @@ public class Villager : MonoBehaviour
 	{
 		Vector3 pos = this.transform.localPosition;
 		pos.x = Random.Range (Globals.VILLAGERS_MIN_X, Globals.VILLAGERS_MAX_X);
+		pos.y = 0f;
 		this.transform.localPosition = pos;
 
         ChooseVillagerMovementDirection();

@@ -29,6 +29,7 @@ public class Beast : MonoBehaviour
 
 		Vector3 pos = this.transform.localPosition;
 		pos.x = x;
+		pos.y = 0f;
 		this.transform.localPosition = pos;
 	}
 
