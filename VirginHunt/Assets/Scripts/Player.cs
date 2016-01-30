@@ -196,7 +196,6 @@ public class Player : MonoBehaviour
             this.transform.localScale = newScale;
             facingLeft = true;
         }
-        
     }
 
     public void TurnRight()
