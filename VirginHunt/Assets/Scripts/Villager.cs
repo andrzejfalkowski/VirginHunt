@@ -14,7 +14,7 @@ public class Villager : MonoBehaviour
 
     private float movementRandomSeed = 0f;
     private float timeToChangeVillagerMovement = 0f;
-    private float maximumTimeToChangeVillagerMovement = 3f;
+    private float maximumTimeToChangeVillagerMovement = 5f;
 
     private float minimumRollForRandomSeed = 0f;
     private float maximumRollForRandomSeed = 3f;
@@ -26,6 +26,7 @@ public class Villager : MonoBehaviour
 		this.transform.localPosition = pos;
 
         ChooseVillagerMovementDirection();
+		maximumTimeToChangeVillagerMovement = Random.Range(3f, 6f);
     }
 
 	void Update () 
@@ -78,11 +79,11 @@ public class Villager : MonoBehaviour
     void ChooseVillagerMovementDirection()
     {
         movementRandomSeed = Random.Range(0f, maximumRollForRandomSeed);
-        if (movementRandomSeed <= 1f)
+        if (movementRandomSeed <= 2f)
         {
             CurrentState = EVillagerState.Idle;
         }
-        else if (movementRandomSeed <= 2f)
+        else if (movementRandomSeed <= 2.5f)
         {
             CurrentState = EVillagerState.WalkingLeft;
         }
