@@ -94,6 +94,9 @@ public class Player : MonoBehaviour
 
 	public void HandleSpaceAction()
 	{
+		if(CurrentState == EPlayerState.Dropping || CurrentState == EPlayerState.Dying || CurrentState == EPlayerState.PickingUp)
+			return;
+
 		if(IsCarryingVillager)
 		{
 			CurrentState = EPlayerState.Dropping;
