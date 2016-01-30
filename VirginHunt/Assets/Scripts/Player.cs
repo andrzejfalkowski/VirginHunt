@@ -151,9 +151,10 @@ public class Player : MonoBehaviour
             IsOnPrayerSpot = true;
             currentPrayerSpot = prayerSpot;
         }
-		else if(beast != null)
+		else if(beast != null && beast.ReadyToAttack())
 		{
             playerAnimations.AnimationDie();
+			beast.Attack();
 			GameController.Instance.GameOver();
 		}
 	}
