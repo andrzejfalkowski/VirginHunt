@@ -6,6 +6,9 @@ public class PlayerAnimations : MonoBehaviour {
     public Animator animator;
 	public Player myPlayer;
 
+	public SpriteRenderer LeftHand;
+	public SpriteRenderer LeftForearm;
+
 	void Awake()
 	{
 		myPlayer = this.transform.GetComponentInParent<Player>();
@@ -31,6 +34,8 @@ public class PlayerAnimations : MonoBehaviour {
     public void AnimationTake()
     {
         animator.SetBool("PickedUp", true);
+		LeftHand.sortingLayerName = "Default";
+		LeftForearm.sortingLayerName = "Default";
     }
 
     public void AnimationPut()
@@ -45,6 +50,9 @@ public class PlayerAnimations : MonoBehaviour {
 
 	public void HandlePutAnimationFinished()
 	{
+		LeftHand.sortingLayerName = "Player";
+		LeftForearm.sortingLayerName = "Player";
+
 		myPlayer.HandlePutAnimationFinished();
 	}
 }
