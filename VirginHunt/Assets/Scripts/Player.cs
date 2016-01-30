@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
 		DropVillager(false);
 	}
 
-	void HandleDeathAnimation()
+	public void HandleDeathAnimation()
 	{
 		GameController.Instance.GameOver(false);
 	}
