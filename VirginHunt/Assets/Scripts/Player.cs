@@ -21,7 +21,10 @@ public class Player : MonoBehaviour
 	public Villager CarriedVillager = null;
 	public Transform PickablePoint;
 
+    private bool facingLeft = false;
+
     public PrayerSpot currentPrayerSpot = null;
+    public PlayerAnimations playerAnimations;
 
 	[SerializeField]
 	private List<Villager> collidingVillagers = new List<Villager>();
@@ -41,14 +44,19 @@ public class Player : MonoBehaviour
 		switch(CurrentState)
 		{
 			case EPlayerState.WalkingLeft:
+                
 				SetNewXPosition(this.transform.localPosition.x - 
 			                (IsCarryingVillager ? Globals.PLAYER_CARRY_SPEED * Time.deltaTime : Globals.PLAYER_WALK_SPEED * Time.deltaTime));
 				break;
 			case EPlayerState.WalkingRight:
-				SetNewXPosition(this.transform.localPosition.x + 
+                
+                SetNewXPosition(this.transform.localPosition.x + 
 			                (IsCarryingVillager ? Globals.PLAYER_CARRY_SPEED * Time.deltaTime : Globals.PLAYER_WALK_SPEED * Time.deltaTime));
 				break;
-		}
+            case EPlayerState.Idle:
+                
+                break;
+        }
 		// TODO; animations
 
 		previousState = CurrentState;
@@ -59,7 +67,11 @@ public class Player : MonoBehaviour
 		if(CurrentState == EPlayerState.Idle || CurrentState == EPlayerState.WalkingRight)
 		{
 			CurrentState = EPlayerState.WalkingLeft;
-		}
+            TurnLeft();
+            playerAnimations.AnimationMove();
+
+            
+        }
 	}
 
 	public void MoveRight()
@@ -67,7 +79,9 @@ public class Player : MonoBehaviour
 		if(CurrentState == EPlayerState.Idle || CurrentState == EPlayerState.WalkingLeft)
 		{
 			CurrentState = EPlayerState.WalkingRight;
-		}
+            TurnRight();
+            playerAnimations.AnimationMove();
+        }
 	}
 
 	public void StopMoving()
@@ -75,7 +89,8 @@ public class Player : MonoBehaviour
 		if(CurrentState == EPlayerState.WalkingLeft || CurrentState == EPlayerState.WalkingRight)
 		{
 			CurrentState = EPlayerState.Idle;
-		}
+            playerAnimations.AnimationIdle();
+        }
 	}
 
 	public void HandleSpaceAction()
@@ -85,19 +100,22 @@ public class Player : MonoBehaviour
 
             if(IsOnAltar)
             {
+                playerAnimations.AnimationPut();
 				Altar.SacrifaceVillager(CarriedVillager.Virginity * Globals.VIRGINITY_POWER_MOD);
                 CarriedVillager.HandleBeingKilled();
                 IsCarryingVillager = false;
             }
             else if(IsOnPrayerSpot && !currentPrayerSpot.IsActiveSpot)
             {
+                playerAnimations.AnimationPut();
                 currentPrayerSpot.AddCultist(CarriedVillager.Virginity);
                 CarriedVillager.HandleBeingKilled();
                 IsCarryingVillager = false;
             }
             else
-            {     
-			    IsCarryingVillager = false;
+            {
+                playerAnimations.AnimationPut();
+                IsCarryingVillager = false;
 			    CarriedVillager.HandleBeingDropped();
 			    CarriedVillager = null;
             }
@@ -107,6 +125,7 @@ public class Player : MonoBehaviour
 			if(collidingVillagers.Count > 0)
 			{
 				IsCarryingVillager = true;
+                playerAnimations.AnimationTake();
 				CarriedVillager = collidingVillagers[0];
 				CarriedVillager.HandleBeingPickedUp();
 			}
@@ -134,6 +153,7 @@ public class Player : MonoBehaviour
         }
 		else if(beast != null)
 		{
+            playerAnimations.AnimationDie();
 			GameController.Instance.GameOver();
 		}
 	}
@@ -166,4 +186,27 @@ public class Player : MonoBehaviour
 
 		GameController.Instance.MainCamera.GetComponent<MainCamera>().SetNewXPosition(newX);
 	}
+
+    public void TurnLeft()
+    {
+        if (!facingLeft)
+        {
+            Vector3 newScale = this.transform.localScale;
+            newScale.x *= -1;
+            this.transform.localScale = newScale;
+            facingLeft = true;
+        }
+        
+    }
+
+    public void TurnRight()
+    {
+        if (facingLeft)
+        {
+            Vector3 newScale = this.transform.localScale;
+            newScale.x *= -1;
+            this.transform.localScale = newScale;
+            facingLeft = false;
+        }
+    }
 }
