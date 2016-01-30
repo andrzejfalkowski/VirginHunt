@@ -23,4 +23,6 @@ public static class Globals
 
 	public const float PLAYER_WALK_SPEED = 1f;
 	public const float PLAYER_CARRY_SPEED = 0.5f;
+
+	public const float VIRGINITY_POWER_MOD = 10f;
 }

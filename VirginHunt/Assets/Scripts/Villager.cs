@@ -12,6 +12,8 @@ public class Villager : MonoBehaviour
 	}
 	public EVillagerState CurrentState = EVillagerState.Idle;
 
+	public float Virginity = 1f;
+
     private float movementRandomSeed = 0f;
     private float timeToChangeVillagerMovement = 0f;
     private float maximumTimeToChangeVillagerMovement = 5f;
@@ -27,6 +29,8 @@ public class Villager : MonoBehaviour
 
         ChooseVillagerMovementDirection();
 		maximumTimeToChangeVillagerMovement = Random.Range(3f, 6f);
+
+		Virginity = Random.Range(0f, 1f);
     }
 
 	void Update () 
