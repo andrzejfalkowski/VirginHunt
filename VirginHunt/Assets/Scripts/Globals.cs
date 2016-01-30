@@ -10,6 +10,8 @@ public static class Globals
 	public const float MAX_POWER = 100f;
     public static float POWER = 0f;
 
+	public const float CULTIST_POWER_MOD = 0.3f;
+
 	public const int VILLAGERS_START_AMOUNT = 40;
 	public const int VILLAGERS_MAX_AMOUNT = 50;
 

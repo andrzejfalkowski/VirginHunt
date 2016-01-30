@@ -185,6 +185,9 @@ public class Villager : MonoBehaviour
             break;
             case EVillagerState.PickedUp:
             break;
+			case EVillagerState.Praying:
+				Globals.POWER = Mathf.Min(Globals.POWER + (Virginity * Time.deltaTime * Globals.CULTIST_POWER_MOD), Globals.MAX_POWER);
+			break;
         }
 	}
 
