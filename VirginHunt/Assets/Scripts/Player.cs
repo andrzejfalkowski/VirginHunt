@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour 
 {
@@ -15,10 +16,15 @@ public class Player : MonoBehaviour
 	private EPlayerState previousState = EPlayerState.Idle;
 
 	public bool IsCarryingVillager = false;
-	
+	public Villager CarriedVillager = null;
+	public Transform PickablePoint;
+
+	[SerializeField]
+	private List<Villager> collidingVillagers = new List<Villager>();
+
 	public void Init() 
 	{
-	
+		collidingVillagers.Clear();
 	}
 	
 	// Update is called once per frame
@@ -66,14 +72,38 @@ public class Player : MonoBehaviour
 
 	public void HandleSpaceAction()
 	{
-
 		if(IsCarryingVillager)
 		{
-			// TODO
+			IsCarryingVillager = false;
+			CarriedVillager.HandleBeingDropped();
+			CarriedVillager = null;
 		}
 		else
 		{
-			// TODO
+			if(collidingVillagers.Count > 0)
+			{
+				IsCarryingVillager = true;
+				CarriedVillager = collidingVillagers[0];
+				CarriedVillager.HandleBeingPickedUp();
+			}
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D collider)
+	{
+		Villager villager = collider.GetComponent<Villager>();
+		if(villager != null && !collidingVillagers.Contains(villager))
+		{
+			collidingVillagers.Add(villager);
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D collider)
+	{
+		Villager villager = collider.GetComponent<Villager>();
+		if(villager != null && collidingVillagers.Contains(villager))
+		{
+			collidingVillagers.Remove(villager);
 		}
 	}
 

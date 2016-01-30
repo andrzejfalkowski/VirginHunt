@@ -93,6 +93,20 @@ public class Villager : MonoBehaviour
         }
     }
 
+	public void HandleBeingPickedUp()
+	{
+		CurrentState = EVillagerState.PickedUp;
+		this.transform.SetParent(GameController.Instance.PlayerCharacter.PickablePoint);
+		this.transform.localPosition = Vector3.zero;
+	}
+
+	public void HandleBeingDropped()
+	{
+		CurrentState = EVillagerState.Idle;
+		this.transform.SetParent(GameController.Instance.PlayerCharacter.transform.parent);
+		this.transform.localPosition = GameController.Instance.PlayerCharacter.transform.localPosition;
+	}
+
     public void SetNewXPosition(float newX)
     {
         Vector3 pos = this.transform.localPosition;

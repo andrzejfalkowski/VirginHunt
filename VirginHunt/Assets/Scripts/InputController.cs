@@ -26,7 +26,7 @@ public class InputController : MonoBehaviour
 			{
 				GameController.Instance.PlayerCharacter.StopMoving();
 			}
-			if(Input.GetKey(KeyCode.Space))
+			if(Input.GetKeyDown(KeyCode.Space))
 			{
 				GameController.Instance.PlayerCharacter.HandleSpaceAction();
 			}
