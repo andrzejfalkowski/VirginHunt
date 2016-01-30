@@ -11,7 +11,7 @@ public class AltarBarrier : MonoBehaviour
 			Globals.POWER = Mathf.Max(0f, Globals.POWER - Globals.BEAST_POWER);
 			if(Globals.POWER >= 0f)
 			{
-				beast.Die ();
+				beast.Die();
 			}
 		}
 	}

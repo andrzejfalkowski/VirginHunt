@@ -28,10 +28,10 @@ public class PrayerSpot : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider)
 	{
 		Beast beast = collider.GetComponent<Beast>();
-		if(beast != null)
+		if(beast != null && beast.ReadyToAttack())
 		{
 			IsActiveSpot = false;
-			beast.Die();
+			beast.Attack();
 		}
 	}
 }
