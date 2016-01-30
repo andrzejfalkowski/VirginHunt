@@ -110,8 +110,8 @@ public class Player : MonoBehaviour
             else if(IsOnPrayerSpot && !currentPrayerSpot.IsActiveSpot)
             {
                 playerAnimations.AnimationPut();
-                currentPrayerSpot.AddCultist(CarriedVillager.Virginity);
-                CarriedVillager.HandleBeingKilled();
+                currentPrayerSpot.AddCultist(CarriedVillager);
+				CarriedVillager.HandleBeingDroppedAsCultist(currentPrayerSpot);
                 IsCarryingVillager = false;
             }
             else
@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
         Altar altar = collider.GetComponent<Altar>();
         PrayerSpot prayerSpot = collider.GetComponent<PrayerSpot>();
 		Beast beast = collider.GetComponent<Beast>();
-		if(villager != null && !collidingVillagers.Contains(villager))
+		if(villager != null && !collidingVillagers.Contains(villager) && villager.CanBePickedUp())
 		{
 			collidingVillagers.Add(villager);
 		}

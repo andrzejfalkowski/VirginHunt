@@ -31,4 +31,14 @@ public class VillagerAnimations : MonoBehaviour
 		animator.SetBool("Walking", false);
 		animator.SetBool("Idle", false);
 	}
+
+	public void AnimationPray()
+	{
+		animator.SetBool("Pray", true);
+	}
+
+	public void AnimationDie()
+	{
+		animator.SetBool("Die", true);
+	}
 }

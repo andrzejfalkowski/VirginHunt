@@ -22,6 +22,12 @@ public class Altar : MonoBehaviour
 			}
 		);
 		currentLevel = ((Globals.START_POWER / Globals.MAX_POWER) * (GlowSprites.Count - 1));
+
+		PrayerSpot[] prayerSpots = GetComponentsInChildren<PrayerSpot>();
+		foreach(PrayerSpot prayerSpot in prayerSpots)
+		{
+			prayerSpot.Init();
+		}
     }
     
     public static void SacrifaceVillager(float powerInVillager)

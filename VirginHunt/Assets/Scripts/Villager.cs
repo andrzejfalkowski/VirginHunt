@@ -30,7 +30,9 @@ public class Villager : MonoBehaviour
 		Idle,
 		WalkingLeft,
 		WalkingRight,
-		PickedUp
+		PickedUp,
+		Praying,
+		Dying
 	}
 	public EVillagerState CurrentState = EVillagerState.Idle;
 
@@ -212,6 +214,11 @@ public class Villager : MonoBehaviour
         }
     }
 
+	public bool CanBePickedUp()
+	{
+		return (CurrentState != EVillagerState.Dying && CurrentState != EVillagerState.PickedUp && CurrentState != EVillagerState.Praying);
+	}
+
 	public void HandleBeingPickedUp()
 	{
 		CurrentState = EVillagerState.PickedUp;
@@ -228,10 +235,24 @@ public class Villager : MonoBehaviour
 		villagerAnimations.AnimationIdle();
 	}
 
+	public void HandleBeingDroppedAsCultist(PrayerSpot prayerSpot)
+	{
+		CurrentState = EVillagerState.Praying;
+		this.transform.SetParent(prayerSpot.transform);
+		this.transform.localPosition = prayerSpot.CultistSpot.localPosition;
+		villagerAnimations.AnimationPray();
+	}
+
     public void HandleBeingKilled()
     {
-        Destroy(this.gameObject);
+		CurrentState = EVillagerState.Dying;
+		villagerAnimations.AnimationDie();
     }
+
+	public void HandleDieAnimationFinished()
+	{
+		Destroy(this.gameObject);
+	}
 
     public void SetNewXPosition(float newX)
     {
