@@ -10,7 +10,8 @@ public class Player : MonoBehaviour
 		WalkingLeft,
 		WalkingRight,
 		PickingUp,
-		Dropping
+		Dropping,
+		Dying
 	}
 	public EPlayerState CurrentState = EPlayerState.Idle;
 	private EPlayerState previousState = EPlayerState.Idle;
@@ -112,10 +113,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                playerAnimations.AnimationPut();
-                IsCarryingVillager = false;
-			    CarriedVillager.HandleBeingDropped();
-			    CarriedVillager = null;
+				DropVillager();
             }
         }
 		else
@@ -130,6 +128,30 @@ public class Player : MonoBehaviour
 
 			}
 		}
+	}
+
+	void DropVillager(bool animated = true)
+	{
+		if(animated)
+			playerAnimations.AnimationPut();
+		IsCarryingVillager = false;
+		if(CarriedVillager != null)
+		{
+			CarriedVillager.HandleBeingDropped();
+			CarriedVillager = null;
+		}
+	}
+
+	void Die()
+	{
+		CurrentState = EPlayerState.Dying;
+		playerAnimations.AnimationDie();
+		DropVillager(false);
+	}
+
+	void HandleDeathAnimation()
+	{
+		GameController.Instance.GameOver();
 	}
 
 	void OnTriggerEnter2D(Collider2D collider)
@@ -153,9 +175,9 @@ public class Player : MonoBehaviour
         }
 		else if(beast != null && beast.ReadyToAttack())
 		{
-            playerAnimations.AnimationDie();
 			beast.Attack();
-			GameController.Instance.GameOver();
+			Die();
+			//GameController.Instance.GameOver();
 		}
 	}
 

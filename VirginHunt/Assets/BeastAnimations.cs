@@ -12,11 +12,11 @@ public class BeastAnimations : MonoBehaviour
 
 	public void HandleDeathAnimationFinished()
 	{
-		myBeast.HandleDeathAnimationFinished ();
+		myBeast.HandleDeathAnimationFinished();
 	}
 
 	public void HandleAttackAnimationFinished()
 	{
-		myBeast.HandleAttackAnimationFinished ();
+		myBeast.HandleAttackAnimationFinished();
 	}
 }
