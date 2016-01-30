@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
 
 	public void MoveLeft()
 	{
-		if(CurrentState == EPlayerState.Idle)
+		if(CurrentState == EPlayerState.Idle || CurrentState == EPlayerState.WalkingRight)
 		{
 			CurrentState = EPlayerState.WalkingLeft;
 		}
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
 
 	public void MoveRight()
 	{
-		if(CurrentState == EPlayerState.Idle)
+		if(CurrentState == EPlayerState.Idle || CurrentState == EPlayerState.WalkingLeft)
 		{
 			CurrentState = EPlayerState.WalkingRight;
 		}
