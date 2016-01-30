@@ -1,5 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
+[System.Serializable]
+public class Shirt
+{
+	public Sprite Torso;
+	public Sprite Arm;
+}
+
+[System.Serializable]
+public class Pants
+{
+	public Sprite LeftLeg;
+	public Sprite RightLeg;
+}
+
+[System.Serializable]
+public class Shoes
+{
+	public Sprite LeftShoe;
+	public Sprite RightShoe;
+}
 
 public class Villager : MonoBehaviour 
 {
@@ -13,6 +35,33 @@ public class Villager : MonoBehaviour
 	public EVillagerState CurrentState = EVillagerState.Idle;
 
 	public float Virginity = 1f;
+
+	public bool Woman = false;
+
+	public List<Sprite> MaleHatSprites;
+	public List<Sprite> FemaleHatSprites;
+
+	public List<Sprite> MaleHeadSprites;
+	public List<Sprite> FemaleHeadSprites;
+
+	public List<Shirt> MaleShirtSprites;
+	public List<Shirt> FemaleShirtSprites;
+
+	public List<Pants> MalePantsSprites;
+	public List<Pants> FemalePantsSprites;
+
+	public List<Shoes> MaleShoesSprites;
+	public List<Shoes> FemaleShoesSprites;
+
+	public SpriteRenderer Hat;
+	public SpriteRenderer Head;
+	public SpriteRenderer Torso;
+	public SpriteRenderer LeftArm;
+	public SpriteRenderer RightArm;
+	public SpriteRenderer LeftLeg;
+	public SpriteRenderer RightLeg;
+	public SpriteRenderer LeftShoe;
+	public SpriteRenderer RightShoe;
 
     private float movementRandomSeed = 0f;
     private float timeToChangeVillagerMovement = 0f;
@@ -32,6 +81,60 @@ public class Villager : MonoBehaviour
 		maximumTimeToChangeVillagerMovement = Random.Range(3f, 6f);
 
 		Virginity = Random.Range(0f, 1f);
+
+		Woman = Random.Range(0, 2) > 0;
+
+		if (Woman)
+			Hat.sprite = FemaleHatSprites[Random.Range(0, FemaleHatSprites.Count - 1)];
+		else
+			Hat.sprite = MaleHatSprites[Random.Range(0, FemaleHatSprites.Count - 1)];
+
+		if (Woman)
+			Head.sprite = FemaleHeadSprites[Random.Range(0, FemaleHeadSprites.Count - 1)];
+		else
+			Head.sprite = MaleHeadSprites[Random.Range(0, FemaleHeadSprites.Count - 1)];
+
+
+		if (Woman)
+		{
+			int random = Random.Range(0, FemaleShirtSprites.Count - 1);
+			Torso.sprite = FemaleShirtSprites[random].Torso;
+			LeftArm.sprite = FemaleShirtSprites[random].Arm;
+			RightArm.sprite = FemaleShirtSprites[random].Arm;
+		}
+		else
+		{
+			int random = Random.Range(0, MaleShirtSprites.Count - 1);
+			Torso.sprite = MaleShirtSprites[random].Torso;
+			LeftArm.sprite = MaleShirtSprites[random].Arm;
+			RightArm.sprite = MaleShirtSprites[random].Arm;
+		}
+
+		if (Woman)
+		{
+			int random = Random.Range(0, FemalePantsSprites.Count - 1);
+			LeftLeg.sprite = FemalePantsSprites[random].LeftLeg;
+			RightLeg.sprite = FemalePantsSprites[random].RightLeg;
+		}
+		else
+		{
+			int random = Random.Range(0, MalePantsSprites.Count - 1);
+			LeftLeg.sprite = MalePantsSprites[random].LeftLeg;
+			RightLeg.sprite = MalePantsSprites[random].RightLeg;
+		}
+
+		if (Woman)
+		{
+			int random = Random.Range(0, FemaleShoesSprites.Count - 1);
+			LeftShoe.sprite = FemaleShoesSprites[random].LeftShoe;
+			RightShoe.sprite = FemaleShoesSprites[random].RightShoe;
+		}
+		else
+		{
+			int random = Random.Range(0, MaleShoesSprites.Count - 1);
+			LeftShoe.sprite = MaleShoesSprites[random].LeftShoe;
+			RightShoe.sprite = MaleShoesSprites[random].RightShoe;
+		}
     }
 
 	void Update () 
