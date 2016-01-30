@@ -13,32 +13,29 @@ public class PlayerAnimations : MonoBehaviour {
 
     public void AnimationMove()
     {
-        animator.SetTrigger("startWalkingAnimation");
+        animator.SetBool("Idle", false);
+        animator.SetBool("Walking", true);
     }
 
     public void AnimationIdle()
     {
-        animator.SetTrigger("startIdleAnimation");
-    }
-
-    public void AnimationIdleFromPut()
-    {
-        animator.SetTrigger("startIdleFromPut");
+        animator.SetBool("Walking", false);
+        animator.SetBool("Idle", true);
     }
 
     public void AnimationDie()
     {
-        animator.SetTrigger("startDieAnimation");
+        animator.SetBool("Die", true);
     }
 
     public void AnimationTake()
     {
-        animator.SetTrigger("startTakeAnimation");
+        animator.SetBool("PickedUp", true);
     }
 
     public void AnimationPut()
     {
-        animator.SetTrigger("startPutAnimation");
+        animator.SetBool("PickedUp", false);
     }
 
 	public void HandleTakeAnimationFinished()

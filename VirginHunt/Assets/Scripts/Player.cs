@@ -235,11 +235,12 @@ public class Player : MonoBehaviour
 	public void HandleTakeAnimationFinished()
 	{
 		CurrentState = EPlayerState.Idle;
-	}
+        playerAnimations.AnimationIdle();
+    }
 
 	public void HandlePutAnimationFinished()
 	{
 		CurrentState = EPlayerState.Idle;
-        playerAnimations.AnimationIdleFromPut();
-	}
+        playerAnimations.AnimationIdle();
+    }
 }
