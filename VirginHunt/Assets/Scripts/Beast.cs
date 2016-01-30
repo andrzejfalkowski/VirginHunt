@@ -19,7 +19,17 @@ public class Beast : MonoBehaviour
 
 	public void Init()
 	{
+		IsFacingLeft = Random.Range(0, 2) > 0;
+		float x = GameController.Instance.MainCamera.ViewportToWorldPoint(new Vector3((IsFacingLeft ? 1f: 0f), 0f, 0f)).x;
 
+		if(IsFacingLeft)
+			CurrentState = EBeastState.RunningLeft;
+		else
+			CurrentState = EBeastState.RunningRight;
+
+		Vector3 pos = this.transform.localPosition;
+		pos.x = x;
+		this.transform.localPosition = pos;
 	}
 
     void Update()

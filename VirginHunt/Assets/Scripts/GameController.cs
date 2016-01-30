@@ -106,6 +106,7 @@ public class GameController : MonoBehaviour
 					{
 						Beasts[i].Die();
 					}
+					DaysAmount++;
 				}
 				else
 				{
@@ -113,7 +114,7 @@ public class GameController : MonoBehaviour
 					if(timeToSpawnBeast > (Globals.NIGHT_DURATION - Globals.BEAST_MERCY_TIME) / (Globals.START_BEAST_AMOUNT + DaysAmount * Globals.BEAST_AMOUNT_INCREASE))
 					{
 						SpawnBeast();
-						timeToSpawnBeast = timeToSpawnBeast % (Globals.START_BEAST_AMOUNT + DaysAmount * Globals.BEAST_AMOUNT_INCREASE);
+						timeToSpawnBeast = 0f;
 					}
 				}
 			break;
@@ -175,5 +176,10 @@ public class GameController : MonoBehaviour
 
 		if(PlayerCharacter != null)
 			Destroy(PlayerCharacter.gameObject);
+	}
+
+	public void GameOver()
+	{
+
 	}
 }
