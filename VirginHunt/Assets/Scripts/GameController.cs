@@ -179,7 +179,7 @@ public class GameController : MonoBehaviour
 			Destroy(PlayerCharacter.gameObject);
 	}
 
-	public void GameOver()
+	public void GameOver(bool cultistsDead = false)
 	{
 		CurrentGamePhase = EGamePhase.GameOver;
 	}
@@ -195,6 +195,6 @@ public class GameController : MonoBehaviour
 		}
 
 		if(!cultistFound)
-			GameOver();
+			GameOver(true);
 	}
 }
