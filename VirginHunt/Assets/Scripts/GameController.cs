@@ -164,4 +164,9 @@ public class GameController : MonoBehaviour
 		if(PlayerCharacter != null)
 			Destroy(PlayerCharacter.gameObject);
 	}
+
+	public void GameOver()
+	{
+
+	}
 }
