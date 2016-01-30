@@ -4,6 +4,12 @@ using System.Collections;
 public class PlayerAnimations : MonoBehaviour {
 
     public Animator animator;
+	public Player myPlayer;
+
+	void Awake()
+	{
+		myPlayer = this.transform.GetComponentInParent<Player>();
+	}
 
     public void AnimationMove()
     {
@@ -28,6 +34,15 @@ public class PlayerAnimations : MonoBehaviour {
     public void AnimationPut()
     {
         animator.SetTrigger("startPutAnimation");
-        AnimationIdle();
     }
+
+	public void HandleTakeAnimationFinished()
+	{
+		myPlayer.HandleTakeAnimationFinished();
+	}
+
+	public void HandlePutAnimationFinished()
+	{
+		myPlayer.HandlePutAnimationFinished();
+	}
 }
