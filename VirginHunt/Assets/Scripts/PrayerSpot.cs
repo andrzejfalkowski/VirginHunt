@@ -40,6 +40,8 @@ public class PrayerSpot : MonoBehaviour {
 			IsActiveSpot = false;
 			ActiveVillager = null;
 			beast.Attack();
+
+			GameController.Instance.CheckForAnyCultistsLeft();
 		}
 	}
 }

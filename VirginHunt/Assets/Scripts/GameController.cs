@@ -183,4 +183,18 @@ public class GameController : MonoBehaviour
 	{
 		CurrentGamePhase = EGamePhase.GameOver;
 	}
+
+	public void CheckForAnyCultistsLeft()
+	{
+		bool cultistFound = false;
+		PrayerSpot[] prayerSpots = Altar.transform.GetComponentsInChildren<PrayerSpot>();
+		foreach(PrayerSpot prayerSpot in prayerSpots)
+		{
+			if(prayerSpot.IsActiveSpot)
+				cultistFound = true;
+		}
+
+		if(!cultistFound)
+			GameOver();
+	}
 }
