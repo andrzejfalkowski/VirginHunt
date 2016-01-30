@@ -248,6 +248,19 @@ public class Villager : MonoBehaviour
 		CurrentState = EVillagerState.Praying;
 		this.transform.SetParent(prayerSpot.transform);
 		this.transform.localPosition = prayerSpot.CultistSpot.localPosition;
+
+		if(GameController.Instance.Altar.transform.position.x > this.transform.position.x)
+		{
+			Vector3 newScale = this.transform.localScale;
+			newScale.x = 1f;
+			this.transform.localScale = newScale;
+		}
+		else
+		{
+			Vector3 newScale = this.transform.localScale;
+			newScale.x = -1f;
+			this.transform.localScale = newScale;
+		}
 		villagerAnimations.AnimationPray();
 	}
 
