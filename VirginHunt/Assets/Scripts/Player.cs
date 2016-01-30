@@ -113,6 +113,7 @@ public class Player : MonoBehaviour
 		Villager villager = collider.GetComponent<Villager>();
         Altar altar = collider.GetComponent<Altar>();
         PrayerSpot prayerSpot = collider.GetComponent<PrayerSpot>();
+		Beast beast = collider.GetComponent<Beast>();
 		if(villager != null && !collidingVillagers.Contains(villager))
 		{
 			collidingVillagers.Add(villager);
@@ -126,6 +127,10 @@ public class Player : MonoBehaviour
             IsOnPrayerSpot = true;
             currentPrayerSpot = prayerSpot;
         }
+		else if(beast != null)
+		{
+			GameController.Instance.GameOver();
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D collider)

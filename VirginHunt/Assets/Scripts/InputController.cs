@@ -31,5 +31,9 @@ public class InputController : MonoBehaviour
 				GameController.Instance.PlayerCharacter.HandleSpaceAction();
 			}
 		}
+		else
+		{
+			GameController.Instance.PlayerCharacter.StopMoving();
+		}
 	}
 }
