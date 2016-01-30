@@ -164,7 +164,7 @@ public class Player : MonoBehaviour
 
 	void HandleDeathAnimation()
 	{
-		GameController.Instance.GameOver();
+		GameController.Instance.GameOver(false);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider)

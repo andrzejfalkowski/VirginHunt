@@ -179,8 +179,22 @@ public class GameController : MonoBehaviour
 			Destroy(PlayerCharacter.gameObject);
 	}
 
-	public void GameOver()
+	public void GameOver(bool cultistsDead = false)
 	{
 		CurrentGamePhase = EGamePhase.GameOver;
+	}
+
+	public void CheckForAnyCultistsLeft()
+	{
+		bool cultistFound = false;
+		PrayerSpot[] prayerSpots = Altar.transform.GetComponentsInChildren<PrayerSpot>();
+		foreach(PrayerSpot prayerSpot in prayerSpots)
+		{
+			if(prayerSpot.IsActiveSpot)
+				cultistFound = true;
+		}
+
+		if(!cultistFound)
+			GameOver(true);
 	}
 }
