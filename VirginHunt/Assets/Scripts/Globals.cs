@@ -6,6 +6,8 @@ public static class Globals
 	public const float DAY_DURATION = 30f;
 	public const float NIGHT_DURATION = 10f;
 
+    public static float POWER = 0f;
+
 	public const int VILLAGERS_START_AMOUNT = 40;
 	public const int VILLAGERS_MAX_AMOUNT = 50;
 

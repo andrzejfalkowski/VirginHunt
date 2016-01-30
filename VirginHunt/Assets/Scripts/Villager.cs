@@ -107,6 +107,11 @@ public class Villager : MonoBehaviour
 		this.transform.localPosition = GameController.Instance.PlayerCharacter.transform.localPosition;
 	}
 
+    public void HandleBeingKilled()
+    {
+        Destroy(this.gameObject);
+    }
+
     public void SetNewXPosition(float newX)
     {
         Vector3 pos = this.transform.localPosition;

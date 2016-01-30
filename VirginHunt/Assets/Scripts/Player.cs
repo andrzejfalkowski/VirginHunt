@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 	private EPlayerState previousState = EPlayerState.Idle;
 
 	public bool IsCarryingVillager = false;
+    public bool IsOnAltar = true;
 	public Villager CarriedVillager = null;
 	public Transform PickablePoint;
 
@@ -74,10 +75,19 @@ public class Player : MonoBehaviour
 	{
 		if(IsCarryingVillager)
 		{
-			IsCarryingVillager = false;
-			CarriedVillager.HandleBeingDropped();
-			CarriedVillager = null;
-		}
+            if(IsOnAltar)
+            {
+                Altar.SacrifaceVillager(10f);
+                CarriedVillager.HandleBeingKilled();
+                IsCarryingVillager = false;
+            }
+            else
+            {     
+			    IsCarryingVillager = false;
+			    CarriedVillager.HandleBeingDropped();
+			    CarriedVillager = null;
+            }
+        }
 		else
 		{
 			if(collidingVillagers.Count > 0)
@@ -92,19 +102,29 @@ public class Player : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D collider)
 	{
 		Villager villager = collider.GetComponent<Villager>();
+        Altar altar = collider.GetComponent<Altar>();
 		if(villager != null && !collidingVillagers.Contains(villager))
 		{
 			collidingVillagers.Add(villager);
 		}
+        else if(altar != null)
+        {
+            IsOnAltar = true;
+        }
 	}
 
 	void OnTriggerExit2D(Collider2D collider)
 	{
 		Villager villager = collider.GetComponent<Villager>();
+        Altar altar = collider.GetComponent<Altar>();
 		if(villager != null && collidingVillagers.Contains(villager))
 		{
 			collidingVillagers.Remove(villager);
 		}
+        else if(altar != null)
+        {
+            IsOnAltar = false;
+        }
 	}
 
 	public void SetNewXPosition(float newX)

@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
 	public List<Villager> Villagers = new List<Villager>();
 	public List<Beast> Beasts = new List<Beast>();
 	public Player PlayerCharacter;
+    public Altar Altar;
 
 	// prefabs
 	[SerializeField]
@@ -53,8 +54,10 @@ public class GameController : MonoBehaviour
 	private GameObject beastPrefab;
 	[SerializeField]
 	private GameObject playerPrefab;
+    [SerializeField]
+    private GameObject altarPrefab;
 
-	public bool IsGameInPogress()
+    public bool IsGameInPogress()
 	{
 		return CurrentGamePhase == EGamePhase.Day || CurrentGamePhase == EGamePhase.Night;
 	}
@@ -76,6 +79,7 @@ public class GameController : MonoBehaviour
 			case EGamePhase.Prepare:
 				DaysAmount = 0;
 				CleanUp();
+                SpawnAltar();
 				for(int i = 0; i < Globals.VILLAGERS_START_AMOUNT; i++)
 				{
 					SpawnVillager();
@@ -146,7 +150,16 @@ public class GameController : MonoBehaviour
 		Beasts.Add(beast);
 	}
 
-	public void CleanUp()
+    public void SpawnAltar()
+    {
+        GameObject altarObject = GameObject.Instantiate(altarPrefab) as GameObject;
+        altarObject.transform.SetParent(SceneParent);
+        Altar altar = altarObject.GetComponent<Altar>();
+        Altar = altar;
+        altar.Init();
+    }
+
+    public void CleanUp()
 	{
 		for(int i = 0; i < Villagers.Count; i++)
 		{
