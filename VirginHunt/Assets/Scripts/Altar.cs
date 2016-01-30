@@ -6,6 +6,7 @@ public class Altar : MonoBehaviour
 {
 	public SpriteRenderer PowerGlow;
 	public List<Sprite> GlowSprites;
+	float currentLevel = 0f;
 
     public void Init()
     {
@@ -20,6 +21,7 @@ public class Altar : MonoBehaviour
 				return i1.name.CompareTo(i2.name); 
 			}
 		);
+		currentLevel = ((Globals.START_POWER / Globals.MAX_POWER) * (GlowSprites.Count - 1));
     }
     
     public static void SacrifaceVillager(float powerInVillager)
@@ -30,7 +32,17 @@ public class Altar : MonoBehaviour
 
 	void Update()
 	{
-		PowerGlow.sprite = GlowSprites[(int)((Globals.POWER / Globals.MAX_POWER) * (GlowSprites.Count - 1))];
+		float targetLevel = ((Globals.POWER / Globals.MAX_POWER) * (GlowSprites.Count - 1));
+		float newLevel = currentLevel;
+		if(currentLevel > targetLevel)
+			newLevel = Mathf.Max(newLevel - Time.deltaTime * 3f, targetLevel);
+		else if(currentLevel < targetLevel)
+			newLevel =  Mathf.Min(newLevel + Time.deltaTime * 3f, targetLevel);
+		PowerGlow.sprite = GlowSprites[(int)newLevel];
+		currentLevel = newLevel;
+
+//		Debug.Log ((int)newLevel);
+
 //		Color color = PowerGlow.color;
 //		color.a = Globals.POWER / Globals.MAX_POWER;
 //		PowerGlow.color = color;

@@ -85,7 +85,7 @@ public class GameController : MonoBehaviour
 					SpawnVillager();
 				}
 				CurrentGamePhase = EGamePhase.Day;
-				Globals.POWER = 0f;
+				Globals.POWER = Globals.START_POWER;
 				SpawnPlayer();
 			break;
 			case EGamePhase.Day:
