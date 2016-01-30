@@ -118,4 +118,12 @@ public class Villager : MonoBehaviour
         pos.x = newX;
         this.transform.localPosition = pos;
     }
+
+    void OnDestroy()
+    {
+        if (GameController.Instance.Villagers.Contains(this))
+        {
+            GameController.Instance.Villagers.Remove(this);
+        }
+    }
 }
