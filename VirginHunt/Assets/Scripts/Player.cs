@@ -240,5 +240,6 @@ public class Player : MonoBehaviour
 	public void HandlePutAnimationFinished()
 	{
 		CurrentState = EPlayerState.Idle;
+        playerAnimations.AnimationIdleFromPut();
 	}
 }
