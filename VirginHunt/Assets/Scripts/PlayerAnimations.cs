@@ -21,6 +21,11 @@ public class PlayerAnimations : MonoBehaviour {
         animator.SetTrigger("startIdleAnimation");
     }
 
+    public void AnimationIdleFromPut()
+    {
+        animator.SetTrigger("startIdleFromPut");
+    }
+
     public void AnimationDie()
     {
         animator.SetTrigger("startDieAnimation");
