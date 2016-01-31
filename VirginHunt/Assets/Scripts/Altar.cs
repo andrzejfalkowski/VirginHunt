@@ -6,6 +6,7 @@ public class Altar : MonoBehaviour
 {
 	public SpriteRenderer PowerGlow;
 	public List<Sprite> GlowSprites;
+	public Transform SacrificeSpot;
 	float currentLevel = 0f;
 
     public void Init()

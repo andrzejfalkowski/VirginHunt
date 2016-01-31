@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 [System.Serializable]
 public class Shirt
@@ -225,8 +226,11 @@ public class Villager : MonoBehaviour
 	public void HandleBeingPickedUp()
 	{
 		CurrentState = EVillagerState.PickedUp;
+
 		this.transform.SetParent(GameController.Instance.PlayerCharacter.PickablePoint);
-		this.transform.localPosition = Vector3.zero;
+		DOTween.To(() => this.transform.localPosition, (pos) => this.transform.localPosition = pos, Vector3.zero, 2f);
+
+		//this.transform.localPosition = Vector3.zero;
 		villagerAnimations.AnimationCarried();		
 	}
 
@@ -241,8 +245,8 @@ public class Villager : MonoBehaviour
 	public void HandleBeingDroppedAsSacrifice()
 	{
 		CurrentState = EVillagerState.Dying;
-		this.transform.SetParent(GameController.Instance.Altar.transform);
-		this.transform.position = GameController.Instance.Altar.transform.position;
+		this.transform.SetParent(GameController.Instance.Altar.SacrificeSpot);
+		this.transform.position = GameController.Instance.Altar.SacrificeSpot.position;
 		villagerAnimations.AnimationDie();
 
 		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);

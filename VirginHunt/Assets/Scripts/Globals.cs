@@ -15,7 +15,7 @@ public static class Globals
 	public const int VILLAGERS_START_AMOUNT = 40;
 	public const int VILLAGERS_MAX_AMOUNT = 50;
 
-	public const float VILLAGERS_MAX_X = 50f;
+	public const float VILLAGERS_MAX_X = 90f;
 	public const float VILLAGERS_MIN_X = -50f;
 
     public const float VILLAGER_MOVEMENT_SPEED = 1f;
