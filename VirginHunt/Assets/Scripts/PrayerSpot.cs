@@ -7,6 +7,7 @@ public class PrayerSpot : MonoBehaviour {
     public float Virginity = 1f;
 	public Villager ActiveVillager = null;
 
+	public SpriteRenderer LoadingPower;
 	public Transform CultistSpot;
 
     public void Init()
@@ -14,7 +15,7 @@ public class PrayerSpot : MonoBehaviour {
 //        Vector3 pos = this.transform.localPosition;
 //        pos.x = 0f;
 //        this.transform.localPosition = pos;
-
+		LoadingPower.gameObject.SetActive(false);
 		CultistSpot = this.GetComponentInChildren<SpriteRenderer>().transform;
     }
 
@@ -25,6 +26,7 @@ public class PrayerSpot : MonoBehaviour {
 
     public void AddCultist(Villager newCultist)
     {
+		LoadingPower.gameObject.SetActive(true);
         IsActiveSpot = true;
 		Virginity = newCultist.Virginity;
 		ActiveVillager = newCultist;
@@ -37,6 +39,7 @@ public class PrayerSpot : MonoBehaviour {
 		if(beast != null && beast.ReadyToAttack() && IsActiveSpot && ActiveVillager != null)
 		{
 			ActiveVillager.HandleBeingKilled();
+			LoadingPower.gameObject.SetActive(false);
 			IsActiveSpot = false;
 			ActiveVillager = null;
 			beast.Attack();
