@@ -18,6 +18,9 @@ public static class Globals
 	public const float VILLAGERS_MAX_X = 90f;
 	public const float VILLAGERS_MIN_X = -50f;
 
+	public const float MAP_MAX_X = 90f;
+	public const float MAP_MIN_X = -50f;
+
     public const float VILLAGER_MOVEMENT_SPEED = 1f;
 
 	public const int START_BEAST_AMOUNT = 2;

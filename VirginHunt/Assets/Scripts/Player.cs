@@ -217,7 +217,7 @@ public class Player : MonoBehaviour
 	public void SetNewXPosition(float newX)
 	{
 		Vector3 pos = this.transform.localPosition;
-		pos.x = newX;
+		pos.x = Mathf.Min(Mathf.Max(Globals.MAP_MIN_X, newX), Globals.MAP_MAX_X);
 		this.transform.localPosition = pos;
 
 		GameController.Instance.MainCamera.GetComponent<MainCamera>().SetNewXPosition(newX);

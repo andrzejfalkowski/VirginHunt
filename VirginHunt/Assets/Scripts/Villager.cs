@@ -291,7 +291,9 @@ public class Villager : MonoBehaviour
     public void SetNewXPosition(float newX)
     {
         Vector3 pos = this.transform.localPosition;
-        pos.x = newX;
+		pos.x = Mathf.Min(Mathf.Max(Globals.MAP_MIN_X, newX), Globals.MAP_MAX_X);
+		if(newX > Globals.MAP_MAX_X || newX < Globals.MAP_MIN_X)
+			timeToChangeVillagerMovement = maximumTimeToChangeVillagerMovement + 1f;
         this.transform.localPosition = pos;
     }
 
