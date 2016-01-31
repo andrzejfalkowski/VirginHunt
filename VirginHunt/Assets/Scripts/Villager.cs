@@ -297,7 +297,8 @@ public class Villager : MonoBehaviour
 
 		CurrentState = EVillagerState.Dying;
 		this.transform.SetParent(GameController.Instance.Altar.SacrificeSpot);
-		this.transform.localPosition = GameController.Instance.Altar.SacrificeSpot.position;
+		//this.transform.localPosition = GameController.Instance.Altar.SacrificeSpot.position;
+		this.transform.localPosition = new Vector3(0f, -0.35f, 0f);
 		villagerAnimations.AnimationDie();
 
 		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
