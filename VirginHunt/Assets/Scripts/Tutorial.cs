@@ -72,16 +72,16 @@ public class Tutorial : MonoBehaviour {
                 TutorialText.text = "Power on altar will defend village";
                 break;
             case 2:
-                TutorialText.text = "Powered altar can defend village";
+                TutorialText.text = "POWER UP ALTAR to defend village";
                 break;
             case 3:
-                TutorialText.text = "Order villager to pray or sacriface them";
+                TutorialText.text = "Use SPACE to pick villagers up";
                 break;
             case 4:
-                TutorialText.text = "Use space to pick them up";
+                TutorialText.text = "Put them on prayer spots or sacriface them"; 
                 break;
             case 5:
-                TutorialText.text = "Look inside their minds, find virgins!";
+                TutorialText.text = "Look inside their minds, VIRGINS give more power!";
                 break;
         }
     }
