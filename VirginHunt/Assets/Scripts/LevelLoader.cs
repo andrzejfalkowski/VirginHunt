@@ -7,4 +7,9 @@ public class LevelLoader : MonoBehaviour {
     {
         Application.LoadLevel(levelName);
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
