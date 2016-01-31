@@ -3,8 +3,8 @@ using System.Collections;
 
 public static class Globals 
 {
-	public const float DAY_DURATION = 30f;
-	public const float NIGHT_DURATION = 10f;
+	public const float DAY_DURATION = 60f;
+	public const float NIGHT_DURATION = 20f;
 
 	public const float START_POWER = 30f;
 	public const float MAX_POWER = 100f;
