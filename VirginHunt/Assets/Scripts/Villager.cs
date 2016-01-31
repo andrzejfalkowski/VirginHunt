@@ -78,7 +78,9 @@ public class Villager : MonoBehaviour
 	public void Init()
 	{
 		Vector3 pos = this.transform.localPosition;
-		pos.x = Random.Range (Globals.VILLAGERS_MIN_X, Globals.VILLAGERS_MAX_X);
+		pos.x = Random.Range(Globals.VILLAGERS_MIN_X, Globals.VILLAGERS_MAX_X);
+		while(pos.x < Globals.ALTAR_MAX_X && pos.x > Globals.ALTAR_MIN_X)
+			pos.x = Random.Range(Globals.VILLAGERS_MIN_X, Globals.VILLAGERS_MAX_X);
 		pos.y = 0f;
 		this.transform.localPosition = pos;
 
@@ -295,7 +297,7 @@ public class Villager : MonoBehaviour
     {
         Vector3 pos = this.transform.localPosition;
 		pos.x = Mathf.Min(Mathf.Max(Globals.MAP_MIN_X, newX), Globals.MAP_MAX_X);
-		if(newX > Globals.MAP_MAX_X || newX < Globals.MAP_MIN_X)
+		if(newX > Globals.MAP_MAX_X || newX < Globals.MAP_MIN_X || (newX > Globals.ALTAR_MIN_X && newX < Globals.ALTAR_MAX_X))
 			timeToChangeVillagerMovement = maximumTimeToChangeVillagerMovement + 1f;
         this.transform.localPosition = pos;
     }
