@@ -9,6 +9,10 @@ public class Altar : MonoBehaviour
 	public Transform SacrificeSpot;
 	float currentLevel = 0f;
 
+	public AudioSource MyAudioSource;
+	public AudioClip GodsPleased;
+	public AudioClip GodsAngry;
+
     public void Init()
     {
         Vector3 pos = this.transform.localPosition;
@@ -31,10 +35,15 @@ public class Altar : MonoBehaviour
 		}
     }
     
-    public static void SacrifaceVillager(float powerInVillager)
+    public static void SacrifaceVillager(float powerInVillager, bool virgin)
     {
 		Globals.POWER = Mathf.Min(Globals.POWER + powerInVillager, Globals.MAX_POWER);
         Debug.Log("Added POWER! " + powerInVillager);
+		if(virgin)
+			GameController.Instance.Altar.MyAudioSource.PlayOneShot(GameController.Instance.Altar.GodsPleased);
+		else
+			GameController.Instance.Altar.MyAudioSource.PlayOneShot(GameController.Instance.Altar.GodsAngry);
+
     }
 
 	void Update()

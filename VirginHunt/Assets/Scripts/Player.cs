@@ -122,6 +122,8 @@ public class Player : MonoBehaviour
 				CurrentState = EPlayerState.PickingUp;
 				CarriedVillager = collidingVillagers[0];
 				CarriedVillager.HandleBeingPickedUp();
+
+				GetComponent<AudioSource>().Play();
 			}
 		}
 	}
@@ -129,7 +131,7 @@ public class Player : MonoBehaviour
 	void DropVillagerAsSacrifice()
 	{
 		playerAnimations.AnimationPut();
-		Altar.SacrifaceVillager(CarriedVillager.IsVirgin ? Globals.VIRGIN_SACRIFICE_BONUS : Globals.NONVIRGIN_SACRIFICE_BONUS);
+		Altar.SacrifaceVillager(CarriedVillager.IsVirgin ? Globals.VIRGIN_SACRIFICE_BONUS : Globals.NONVIRGIN_SACRIFICE_BONUS, CarriedVillager.IsVirgin);
 		CarriedVillager.HandleBeingDroppedAsSacrifice();
 		IsCarryingVillager = false;
 	}

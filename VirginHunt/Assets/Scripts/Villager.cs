@@ -324,6 +324,8 @@ public class Villager : MonoBehaviour
 			this.transform.localScale = newScale;
 		}
 
+		GetComponent<AudioSource>().Play();
+
 		villagerAnimations.AnimationPray();
 
 		if(GameController.Instance.PlayerCharacter != null)
@@ -332,6 +334,8 @@ public class Villager : MonoBehaviour
 
     public void HandleBeingKilled()
     {
+		GetComponent<AudioSource>().Stop();
+
 		CurrentState = EVillagerState.Dying;
 		villagerAnimations.AnimationDie();
 
