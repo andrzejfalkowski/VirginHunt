@@ -7,6 +7,8 @@ public class PrayerSpot : MonoBehaviour {
     public float Virginity = 1f;
 	public Villager ActiveVillager = null;
 
+	public bool ActiveOnStart = false;
+
 	public SpriteRenderer LoadingPower;
 	public Transform CultistSpot;
 
@@ -17,6 +19,13 @@ public class PrayerSpot : MonoBehaviour {
 //        this.transform.localPosition = pos;
 		LoadingPower.gameObject.SetActive(false);
 		CultistSpot = this.GetComponentInChildren<SpriteRenderer>().transform;
+
+		if(ActiveOnStart)
+		{
+			Villager cultist = GameController.Instance.SpawnAndReturnVillager();
+			AddCultist(cultist);
+			cultist.HandleBeingDroppedAsCultist(this);
+		}
     }
 
     public void AddPower()

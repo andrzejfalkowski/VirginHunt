@@ -325,7 +325,8 @@ public class Villager : MonoBehaviour
 
 		villagerAnimations.AnimationPray();
 
-		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
+		if(GameController.Instance.PlayerCharacter != null)
+			GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
 	}
 
     public void HandleBeingKilled()

@@ -136,6 +136,16 @@ public class GameController : MonoBehaviour
 		player.Init();
 	}
 
+	public Villager SpawnAndReturnVillager()
+	{
+		GameObject villagerObject = GameObject.Instantiate(villagerPrefab) as GameObject;
+		villagerObject.transform.SetParent(SceneParent);
+		Villager villager = villagerObject.GetComponent<Villager>();
+		villager.Init();
+		Villagers.Add(villager);
+		return villager;
+	}
+
 	public void SpawnVillager()
 	{
 		GameObject villagerObject = GameObject.Instantiate(villagerPrefab) as GameObject;
