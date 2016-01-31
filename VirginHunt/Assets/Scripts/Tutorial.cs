@@ -42,7 +42,6 @@ public class Tutorial : MonoBehaviour {
     void Update()
     {
         tutorialTime = tutorialTime + Time.deltaTime;
-        Debug.Log(tutorialTime);
         if(tutorialTime > endTutorialTime)
         {
             EndTutorial();
