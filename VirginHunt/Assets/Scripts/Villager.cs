@@ -188,6 +188,8 @@ public class Villager : MonoBehaviour
 		
 		Virginity = Random.Range(0f, 1f);
 		IsVirgin = Random.Range(0f, 1f) < currentVirginityProbability;
+
+		HideThought();
     }
 
 	void Update () 

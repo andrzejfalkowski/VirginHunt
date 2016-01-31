@@ -175,6 +175,7 @@ public class Player : MonoBehaviour
 		Beast beast = collider.GetComponent<Beast>();
 		if(villager != null && !collidingVillagers.Contains(villager) && villager.CanBePickedUp())
 		{
+			villager.ShowThought();
 			collidingVillagers.Add(villager);
 		}
         else if(altar != null)
@@ -201,6 +202,7 @@ public class Player : MonoBehaviour
         PrayerSpot prayerSpot = collider.GetComponent<PrayerSpot>();
         if (villager != null && collidingVillagers.Contains(villager))
 		{
+			villager.HideThought();
 			collidingVillagers.Remove(villager);
 		}
         else if(altar != null)
@@ -259,6 +261,8 @@ public class Player : MonoBehaviour
 
 	public void RemoveVillagerFromColliding(Villager villager)
 	{
+		villager.HideThought();
+
 		if (collidingVillagers.Contains(villager))
 			collidingVillagers.Remove(villager);
 	}
