@@ -29,7 +29,7 @@ public static class Globals
 	public const int START_BEAST_AMOUNT = 2;
 	public const int BEAST_AMOUNT_INCREASE = 1;
 	public const float BEAST_MERCY_TIME = 5f;
-    public const float BEAST_MOVEMENT_SPEED = 15f;
+    public const float BEAST_MOVEMENT_SPEED = 8f;
 
 	public const float PLAYER_WALK_SPEED = 6f;
 	public const float PLAYER_CARRY_SPEED = 3f;
