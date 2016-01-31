@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
 	void DropVillagerAsSacrifice()
 	{
 		playerAnimations.AnimationPut();
-		Altar.SacrifaceVillager(CarriedVillager.Virginity * Globals.VIRGINITY_POWER_MOD);
+		Altar.SacrifaceVillager(CarriedVillager.IsVirgin ? Globals.VIRGIN_SACRIFICE_BONUS : Globals.NONVIRGIN_SACRIFICE_BONUS);
 		CarriedVillager.HandleBeingDroppedAsSacrifice();
 		IsCarryingVillager = false;
 	}

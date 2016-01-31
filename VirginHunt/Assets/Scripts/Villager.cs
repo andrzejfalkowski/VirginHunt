@@ -186,7 +186,7 @@ public class Villager : MonoBehaviour
 			currentVirginityProbability += MalePantsSprites[random].VirginityLevel;
 		}
 		
-		Virginity = Random.Range(0f, 1f);
+		Virginity = currentVirginityProbability;
 		IsVirgin = Random.Range(0f, 1f) < currentVirginityProbability;
 
 		HideThought();
@@ -237,7 +237,7 @@ public class Villager : MonoBehaviour
             case EVillagerState.PickedUp:
             break;
 			case EVillagerState.Praying:
-				Globals.POWER = Mathf.Min(Globals.POWER + (Virginity * Time.deltaTime * Globals.CULTIST_POWER_MOD), Globals.MAX_POWER);
+				Globals.POWER = Mathf.Min(Globals.POWER + (1f * Time.deltaTime * Globals.CULTIST_POWER_MOD), Globals.MAX_POWER);
 			break;
         }
 	}

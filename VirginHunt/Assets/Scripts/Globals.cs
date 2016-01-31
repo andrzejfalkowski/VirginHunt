@@ -35,6 +35,8 @@ public static class Globals
 	public const float PLAYER_CARRY_SPEED = 3f;
 
 	public const float VIRGINITY_POWER_MOD = 10f;
+	public const float VIRGIN_SACRIFICE_BONUS = 10f;
+	public const float NONVIRGIN_SACRIFICE_BONUS = 1f;
 
 	public const float BEAST_POWER = 10f;
 
