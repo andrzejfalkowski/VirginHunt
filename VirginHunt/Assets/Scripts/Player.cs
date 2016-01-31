@@ -122,7 +122,6 @@ public class Player : MonoBehaviour
 				CurrentState = EPlayerState.PickingUp;
 				CarriedVillager = collidingVillagers[0];
 				CarriedVillager.HandleBeingPickedUp();
-
 			}
 		}
 	}

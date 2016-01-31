@@ -10,7 +10,7 @@ public static class Globals
 	public const float MAX_POWER = 100f;
     public static float POWER = 0f;
 
-	public const float CULTIST_POWER_MOD = 0.3f;
+	public const float CULTIST_POWER_MOD = 0.1f;
 
 	public const int VILLAGERS_START_AMOUNT = 40;
 	public const int VILLAGERS_MAX_AMOUNT = 50;
@@ -38,7 +38,7 @@ public static class Globals
 	public const float VIRGIN_SACRIFICE_BONUS = 10f;
 	public const float NONVIRGIN_SACRIFICE_BONUS = 1f;
 
-	public const float BEAST_POWER = 10f;
+	public const float BEAST_POWER = 20f;
 
 
 }
