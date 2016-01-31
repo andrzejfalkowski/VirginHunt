@@ -220,7 +220,7 @@ public class Player : MonoBehaviour
 		pos.x = Mathf.Min(Mathf.Max(Globals.MAP_MIN_X, newX), Globals.MAP_MAX_X);
 		this.transform.localPosition = pos;
 
-		GameController.Instance.MainCamera.GetComponent<MainCamera>().SetNewXPosition(newX);
+		GameController.Instance.MainCamera.GetComponent<MainCamera>().SetNewXPosition(pos.x);
 	}
 
     public void TurnLeft()
