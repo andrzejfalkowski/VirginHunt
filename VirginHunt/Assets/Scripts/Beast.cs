@@ -24,7 +24,8 @@ public class Beast : MonoBehaviour
 		myAnimator = GetComponentInChildren<Animator>();
 
 		IsFacingLeft = Random.Range(0, 2) > 0;
-		float x = GameController.Instance.MainCamera.ViewportToWorldPoint(new Vector3((IsFacingLeft ? 1f: 0f), 0f, 0f)).x;
+		float x = IsFacingLeft ? Globals.MAP_MAX_X : Globals.MAP_MIN_X;
+			//GameController.Instance.MainCamera.ViewportToWorldPoint(new Vector3((IsFacingLeft ? 1f: 0f), 0f, 0f)).x;
 
 		if(IsFacingLeft)
 		{

@@ -97,7 +97,7 @@ public class GameController : MonoBehaviour
 					CurrentPhaseTime = CurrentPhaseTime % Globals.DAY_DURATION;
 					CurrentGamePhase = EGamePhase.Night;
 					// TODO: handle switch to night
-					timeToSpawnBeast = 0f;
+					timeToSpawnBeast = Globals.NIGHT_DURATION;
 				}
 			break;
 			case EGamePhase.Night:
@@ -106,19 +106,22 @@ public class GameController : MonoBehaviour
 					CurrentPhaseTime = CurrentPhaseTime % Globals.NIGHT_DURATION;
 					CurrentGamePhase = EGamePhase.Day;
 					// TODO: handle switch to day
-					for(int i = 0; i < Beasts.Count; i++)
-					{
-						Beasts[i].Die();
-					}
+//					for(int i = 0; i < Beasts.Count; i++)
+//					{
+//						Beasts[i].Die();
+//					}
 					DaysAmount++;
 				}
 				else
 				{
 					timeToSpawnBeast += Time.deltaTime;
-					if(timeToSpawnBeast > (Globals.NIGHT_DURATION - Globals.BEAST_MERCY_TIME) / (Globals.START_BEAST_AMOUNT + DaysAmount * Globals.BEAST_AMOUNT_INCREASE))
+					if(CurrentPhaseTime < Globals.NIGHT_DURATION - Globals.BEAST_MERCY_TIME)
 					{
-						SpawnBeast();
-						timeToSpawnBeast = 0f;
+						if(timeToSpawnBeast > (Globals.NIGHT_DURATION - Globals.BEAST_MERCY_TIME) / (Globals.START_BEAST_AMOUNT + DaysAmount * Globals.BEAST_AMOUNT_INCREASE))
+						{
+							SpawnBeast();
+							timeToSpawnBeast = 0f;
+						}
 					}
 				}
 			break;
