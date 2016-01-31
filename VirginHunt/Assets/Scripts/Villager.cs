@@ -4,10 +4,32 @@ using System.Collections.Generic;
 using DG.Tweening;
 
 [System.Serializable]
+public class Thought
+{
+	public Sprite Icon;
+	public float VirginityLevel;
+}
+
+[System.Serializable]
+public class Hat
+{
+	public Sprite HatSprite;
+	public float VirginityLevel;
+}
+
+[System.Serializable]
+public class Head
+{
+	public Sprite HeadSprite;
+	public float VirginityLevel;
+}
+
+[System.Serializable]
 public class Shirt
 {
 	public Sprite Torso;
 	public Sprite Arm;
+	public float VirginityLevel;
 }
 
 [System.Serializable]
@@ -15,6 +37,7 @@ public class Pants
 {
 	public Sprite LeftLeg;
 	public Sprite RightLeg;
+	public float VirginityLevel;
 }
 
 [System.Serializable]
@@ -22,6 +45,7 @@ public class Shoes
 {
 	public Sprite LeftShoe;
 	public Sprite RightShoe;
+	public float VirginityLevel;
 }
 
 public class Villager : MonoBehaviour 
@@ -37,15 +61,19 @@ public class Villager : MonoBehaviour
 	}
 	public EVillagerState CurrentState = EVillagerState.Idle;
 
+	public bool IsVirgin;
 	public float Virginity = 1f;
 
 	public bool Woman = false;
 
-	public List<Sprite> MaleHatSprites;
-	public List<Sprite> FemaleHatSprites;
+	public List<Thought> MaleThoughtSprites;
+	public List<Thought> FemaleThoughtSprites;
 
-	public List<Sprite> MaleHeadSprites;
-	public List<Sprite> FemaleHeadSprites;
+	public List<Hat> MaleHatSprites;
+	public List<Hat> FemaleHatSprites;
+
+	public List<Head> MaleHeadSprites;
+	public List<Head> FemaleHeadSprites;
 
 	public List<Shirt> MaleShirtSprites;
 	public List<Shirt> FemaleShirtSprites;
@@ -53,9 +81,8 @@ public class Villager : MonoBehaviour
 	public List<Pants> MalePantsSprites;
 	public List<Pants> FemalePantsSprites;
 
-	public List<Shoes> MaleShoesSprites;
-	public List<Shoes> FemaleShoesSprites;
-
+	public SpriteRenderer ThoughtBubble;
+	public SpriteRenderer ThoughtIcon;
 	public SpriteRenderer Hat;
 	public SpriteRenderer Head;
 	public SpriteRenderer Torso;
@@ -63,8 +90,6 @@ public class Villager : MonoBehaviour
 	public SpriteRenderer RightArm;
 	public SpriteRenderer LeftLeg;
 	public SpriteRenderer RightLeg;
-	public SpriteRenderer LeftShoe;
-	public SpriteRenderer RightShoe;
 
 	public VillagerAnimations villagerAnimations;
 
@@ -77,6 +102,8 @@ public class Villager : MonoBehaviour
 
 	public void Init()
 	{
+		float currentVirginityProbability = 0.5f;
+
 		Vector3 pos = this.transform.localPosition;
 		pos.x = Random.Range(Globals.VILLAGERS_MIN_X, Globals.VILLAGERS_MAX_X);
 		while(pos.x < Globals.ALTAR_MAX_X && pos.x > Globals.ALTAR_MIN_X)
@@ -86,62 +113,81 @@ public class Villager : MonoBehaviour
 
         ChooseVillagerMovementDirection();
 		maximumTimeToChangeVillagerMovement = Random.Range(3f, 6f);
-
-		Virginity = Random.Range(0f, 1f);
-
+		
 		Woman = Random.Range(0, 2) > 0;
-
-		if (Woman)
-			Hat.sprite = FemaleHatSprites[Random.Range(0, FemaleHatSprites.Count - 1)];
-		else
-			Hat.sprite = MaleHatSprites[Random.Range(0, FemaleHatSprites.Count - 1)];
-
-		if (Woman)
-			Head.sprite = FemaleHeadSprites[Random.Range(0, FemaleHeadSprites.Count - 1)];
-		else
-			Head.sprite = MaleHeadSprites[Random.Range(0, FemaleHeadSprites.Count - 1)];
-
-
 		if (Woman)
 		{
-			int random = Random.Range(0, FemaleShirtSprites.Count - 1);
+			int random = Random.Range(0, FemaleThoughtSprites.Count);
+			ThoughtIcon.sprite = FemaleThoughtSprites[random].Icon;
+			currentVirginityProbability += FemaleThoughtSprites[random].VirginityLevel;
+		}
+		else
+		{
+			int random = Random.Range(0, MaleThoughtSprites.Count);
+			ThoughtIcon.sprite = MaleThoughtSprites[random].Icon;
+			currentVirginityProbability += MaleThoughtSprites[random].VirginityLevel;
+		}
+		
+		if (Woman)
+		{
+			int random = Random.Range(0, FemaleHatSprites.Count);
+			Hat.sprite = FemaleHatSprites[random].HatSprite;
+			currentVirginityProbability += FemaleHatSprites[random].VirginityLevel;
+		}
+		else
+		{
+			int random = Random.Range(0, MaleHatSprites.Count);
+			Hat.sprite = MaleHatSprites[random].HatSprite;
+			currentVirginityProbability += MaleHatSprites[random].VirginityLevel;
+		}
+		
+		if (Woman)
+		{
+			int random = Random.Range(0, FemaleHeadSprites.Count);
+			Head.sprite = FemaleHeadSprites[random].HeadSprite;
+			currentVirginityProbability += FemaleHeadSprites[random].VirginityLevel;
+		}
+		else
+		{
+			int random = Random.Range(0, MaleHeadSprites.Count);
+			Head.sprite = MaleHeadSprites[random].HeadSprite;
+			currentVirginityProbability += MaleHeadSprites[random].VirginityLevel;
+		}
+		
+		if (Woman)
+		{
+			int random = Random.Range(0, FemaleShirtSprites.Count);
 			Torso.sprite = FemaleShirtSprites[random].Torso;
 			LeftArm.sprite = FemaleShirtSprites[random].Arm;
 			RightArm.sprite = FemaleShirtSprites[random].Arm;
+			currentVirginityProbability += FemaleShirtSprites[random].VirginityLevel;
 		}
 		else
 		{
-			int random = Random.Range(0, MaleShirtSprites.Count - 1);
+			int random = Random.Range(0, MaleShirtSprites.Count);
 			Torso.sprite = MaleShirtSprites[random].Torso;
 			LeftArm.sprite = MaleShirtSprites[random].Arm;
 			RightArm.sprite = MaleShirtSprites[random].Arm;
+			currentVirginityProbability += MaleShirtSprites[random].VirginityLevel;
 		}
 
 		if (Woman)
 		{
-			int random = Random.Range(0, FemalePantsSprites.Count - 1);
+			int random = Random.Range(0, FemalePantsSprites.Count);
 			LeftLeg.sprite = FemalePantsSprites[random].LeftLeg;
 			RightLeg.sprite = FemalePantsSprites[random].RightLeg;
+			currentVirginityProbability += FemalePantsSprites[random].VirginityLevel;
 		}
 		else
 		{
-			int random = Random.Range(0, MalePantsSprites.Count - 1);
+			int random = Random.Range(0, MalePantsSprites.Count);
 			LeftLeg.sprite = MalePantsSprites[random].LeftLeg;
 			RightLeg.sprite = MalePantsSprites[random].RightLeg;
+			currentVirginityProbability += MalePantsSprites[random].VirginityLevel;
 		}
-
-		if (Woman)
-		{
-			int random = Random.Range(0, FemaleShoesSprites.Count - 1);
-			LeftShoe.sprite = FemaleShoesSprites[random].LeftShoe;
-			RightShoe.sprite = FemaleShoesSprites[random].RightShoe;
-		}
-		else
-		{
-			int random = Random.Range(0, MaleShoesSprites.Count - 1);
-			LeftShoe.sprite = MaleShoesSprites[random].LeftShoe;
-			RightShoe.sprite = MaleShoesSprites[random].RightShoe;
-		}
+		
+		Virginity = Random.Range(0f, 1f);
+		IsVirgin = Random.Range(0f, 1f) < currentVirginityProbability;
     }
 
 	void Update () 
@@ -301,6 +347,16 @@ public class Villager : MonoBehaviour
 			timeToChangeVillagerMovement = maximumTimeToChangeVillagerMovement + 1f;
         this.transform.localPosition = pos;
     }
+
+	public void ShowThought()
+	{
+		ThoughtBubble.gameObject.SetActive(true);
+	}
+
+	public void HideThought()
+	{
+		ThoughtBubble.gameObject.SetActive(false);
+	}
 
     void OnDestroy()
     {
