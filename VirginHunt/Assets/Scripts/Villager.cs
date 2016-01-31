@@ -228,7 +228,7 @@ public class Villager : MonoBehaviour
 		CurrentState = EVillagerState.PickedUp;
 
 		this.transform.SetParent(GameController.Instance.PlayerCharacter.PickablePoint);
-		DOTween.To(() => this.transform.localPosition, (pos) => this.transform.localPosition = pos, Vector3.zero, 2f);
+		DOTween.To(() => this.transform.localPosition, (pos) => this.transform.localPosition = pos, Vector3.zero, 1.2f);
 
 		//this.transform.localPosition = Vector3.zero;
 		villagerAnimations.AnimationCarried();		
@@ -244,9 +244,10 @@ public class Villager : MonoBehaviour
 
 	public void HandleBeingDroppedAsSacrifice()
 	{
+
 		CurrentState = EVillagerState.Dying;
 		this.transform.SetParent(GameController.Instance.Altar.SacrificeSpot);
-		this.transform.position = GameController.Instance.Altar.SacrificeSpot.position;
+		this.transform.localPosition = GameController.Instance.Altar.SacrificeSpot.position;
 		villagerAnimations.AnimationDie();
 
 		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
@@ -256,7 +257,8 @@ public class Villager : MonoBehaviour
 	{
 		CurrentState = EVillagerState.Praying;
 		this.transform.SetParent(prayerSpot.transform);
-		this.transform.localPosition = prayerSpot.CultistSpot.localPosition;
+		//this.transform.localPosition = prayerSpot.CultistSpot.localPosition;
+		this.transform.localPosition = new Vector3(0f, -0.5f, 0f);
 
 		if(GameController.Instance.Altar.transform.position.x > this.transform.position.x)
 		{
@@ -270,6 +272,7 @@ public class Villager : MonoBehaviour
 			newScale.x = -1f;
 			this.transform.localScale = newScale;
 		}
+
 		villagerAnimations.AnimationPray();
 
 		GameController.Instance.PlayerCharacter.RemoveVillagerFromColliding(this);
