@@ -10,6 +10,7 @@ public class WinGame : MonoBehaviour {
 	    if (Globals.POWER >= Globals.MAX_POWER)
         {
             WinGamePanel.SetActive(true);
+            Time.timeScale = 0f;
         }
 	}
 }

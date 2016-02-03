@@ -81,6 +81,7 @@ public class GameController : MonoBehaviour
 		{
 			case EGamePhase.Prepare:
 				DaysAmount = 0;
+                Time.timeScale = 1f;
 				CleanUp();
                 SpawnAltar();
 				for(int i = 0; i < Globals.VILLAGERS_START_AMOUNT; i++)
@@ -126,6 +127,7 @@ public class GameController : MonoBehaviour
 				}
 			break;
 			case EGamePhase.GameOver:
+                Time.timeScale = 0f;
 			break;
 		}
 	}
