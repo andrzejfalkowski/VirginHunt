@@ -41,7 +41,14 @@ public class PlayerAnimations : MonoBehaviour {
     public void AnimationPut()
     {
         animator.SetBool("PickedUp", false);
+		animator.SetBool("Sacrifice", false);
     }
+
+	public void AnimationSacrifice()
+	{
+		animator.SetBool("PickedUp", false);
+		animator.SetBool("Sacrifice", true);
+	}
 
 	public void HandleTakeAnimationFinished()
 	{

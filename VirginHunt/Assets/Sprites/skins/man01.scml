@@ -911,7 +911,7 @@
             </timeline>
             <timeline id="7" obj="0" name="corpo" object_type="bone">
                 <key id="0" spin="0">
-                    <bone x="21.826618" y="99.125508" angle="183.837297"/>
+                    <bone x="9.358714" y="1.298284" angle="183.837297"/>
                 </key>
             </timeline>
             <timeline id="8" obj="1" name="glowa" object_type="bone">
