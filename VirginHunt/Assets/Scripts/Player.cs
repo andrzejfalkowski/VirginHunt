@@ -170,6 +170,9 @@ public class Player : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D collider)
 	{
+		if(CurrentState == EPlayerState.Dying)
+			return;
+
 		Villager villager = collider.GetComponent<Villager>();
         Altar altar = collider.GetComponent<Altar>();
         PrayerSpot prayerSpot = collider.GetComponent<PrayerSpot>();

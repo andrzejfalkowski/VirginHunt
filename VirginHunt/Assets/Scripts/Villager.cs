@@ -240,6 +240,9 @@ public class Villager : MonoBehaviour
 				Globals.POWER = Mathf.Min(Globals.POWER + (Time.deltaTime * Globals.CULTIST_POWER_MOD), Globals.MAX_POWER);
 			break;
         }
+		Vector3 zDepth = this.transform.localPosition;
+		zDepth.z = zDepth.x;
+		this.transform.localPosition = zDepth;
 	}
 
     void ChooseVillagerMovementDirection()
