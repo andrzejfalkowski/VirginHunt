@@ -134,6 +134,9 @@ public class Player : MonoBehaviour
 		Altar.SacrifaceVillager(CarriedVillager.IsVirgin ? Globals.VIRGIN_SACRIFICE_BONUS : Globals.NONVIRGIN_SACRIFICE_BONUS, CarriedVillager.IsVirgin);
 		CarriedVillager.HandleBeingDroppedAsSacrifice();
 		IsCarryingVillager = false;
+
+		if(collidingVillagers.Count > 0)
+			collidingVillagers[collidingVillagers.Count - 1].GetComponent<Flash>().HideFlash();
 	}
 
 	void DropVillagerAsCultist()
@@ -142,6 +145,9 @@ public class Player : MonoBehaviour
 		currentPrayerSpot.AddCultist(CarriedVillager);
 		CarriedVillager.HandleBeingDroppedAsCultist(currentPrayerSpot);
 		IsCarryingVillager = false;
+
+		if(collidingVillagers.Count > 0)
+			collidingVillagers[collidingVillagers.Count - 1].GetComponent<Flash>().HideFlash();
 	}
 
 	void DropVillager(bool animated = true)
@@ -149,6 +155,10 @@ public class Player : MonoBehaviour
 		if(animated)
 			playerAnimations.AnimationPut();
 		IsCarryingVillager = false;
+
+		if(collidingVillagers.Count > 0)
+			collidingVillagers[collidingVillagers.Count - 1].GetComponent<Flash>().HideFlash();
+
 		if(CarriedVillager != null)
 		{
 			CarriedVillager.HandleBeingDropped();
@@ -180,11 +190,18 @@ public class Player : MonoBehaviour
 		if(villager != null && !collidingVillagers.Contains(villager) && villager.CanBePickedUp())
 		{
 			villager.ShowThought();
+			if(collidingVillagers.Count > 0)
+				collidingVillagers[collidingVillagers.Count - 1].GetComponent<Flash>().HideFlash();
+
 			collidingVillagers.Add(villager);
+			if(!IsCarryingVillager)
+				villager.GetComponent<Flash>().ShowFlash();
+
 		}
         else if(altar != null)
         {
             IsOnAltar = true;
+			altar.AltarSprite.transform.GetComponent<Flash>().ShowFlash();
         }
         else if (prayerSpot != null)
         {
@@ -207,11 +224,13 @@ public class Player : MonoBehaviour
         if (villager != null && collidingVillagers.Contains(villager))
 		{
 			villager.HideThought();
+			villager.GetComponent<Flash>().HideFlash();
 			collidingVillagers.Remove(villager);
 		}
         else if(altar != null)
         {
             IsOnAltar = false;
+			altar.AltarSprite.transform.GetComponent<Flash>().HideFlash();
         }
         else if(prayerSpot != false)
         {
@@ -268,6 +287,9 @@ public class Player : MonoBehaviour
 		villager.HideThought();
 
 		if (collidingVillagers.Contains(villager))
+		{
 			collidingVillagers.Remove(villager);
+			villager.GetComponent<Flash>().HideFlash();
+		}
 	}
 }

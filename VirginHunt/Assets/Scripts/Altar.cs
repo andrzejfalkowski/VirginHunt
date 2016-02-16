@@ -13,6 +13,8 @@ public class Altar : MonoBehaviour
 	public AudioClip GodsPleased;
 	public AudioClip GodsAngry;
 
+	public SpriteRenderer AltarSprite;
+
     public void Init()
     {
         Vector3 pos = this.transform.localPosition;
