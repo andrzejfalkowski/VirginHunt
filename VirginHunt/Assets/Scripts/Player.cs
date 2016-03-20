@@ -205,8 +205,11 @@ public class Player : MonoBehaviour
         }
         else if (prayerSpot != null)
         {
+			if(currentPrayerSpot != null)
+				currentPrayerSpot.GetComponent<Flash>().HideFlash();
             IsOnPrayerSpot = true;
             currentPrayerSpot = prayerSpot;
+			currentPrayerSpot.GetComponent<Flash>().ShowFlash();
         }
 		else if(beast != null && beast.ReadyToAttack())
 		{
@@ -235,6 +238,7 @@ public class Player : MonoBehaviour
         else if(prayerSpot != false)
         {
             IsOnPrayerSpot = false;
+			currentPrayerSpot.GetComponent<Flash>().HideFlash();
             currentPrayerSpot = null;
         }
 	}
